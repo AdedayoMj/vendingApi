@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "@types/helmet": "^4.0.0",
+    "accesscontrol": "^2.2.1",
     "bcryptjs": "^2.4.3",
     "helmet": "^5.1.0",
     "http": "^0.0.1-security",
