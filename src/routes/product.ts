@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.get('/getAllProduct', controller.readAllProduct);
 router.get('/read/:productID', controller.readProduct);
-router.post('/addProduct', checkJWT, verifyRole(ROLES_LIST.seller) , controller.addProduct);
+router.post('/addProduct', checkJWT, controller.upload.single('productImage'), verifyRole(ROLES_LIST.seller) , controller.addProduct);
 router.post('/query', checkJWT, verifyRole(ROLES_LIST.seller), controller.query);
 router.patch('/updateProduct/:productID', checkJWT, verifyRole(ROLES_LIST.seller), controller.updateProduct);
 router.delete('/:productID', checkJWT, verifyRole(ROLES_LIST.seller), controller.deleteProduct);

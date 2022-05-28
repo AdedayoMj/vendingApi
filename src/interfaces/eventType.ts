@@ -11,6 +11,7 @@ export default interface ProductData extends Document {
     productName: string;
     amountAvailable: number;
     cost: number;
+    productImage: string;
     sellerId: any;
 }
 

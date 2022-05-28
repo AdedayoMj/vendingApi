@@ -31,3 +31,16 @@
 20220528	19:25:51	47c3cf12-4488-45ae-bd91-a0ae01dc220f	POST	undefined	/api/product/addProduct
 20220528	19:26:00	a0002e11-e694-4b6c-9d50-23394ffa56ca	PUT	undefined	/api/user/updateUser/6292492a68119b2284a5fc8a
 20220528	19:26:37	4e4f0f62-6359-4137-a78b-539c4a682ec6	POST	undefined	/api/product/addProduct
+20220528	20:59:46	f8377c38-c679-4032-9c11-074f8c03a923	GET	undefined	/api/product/getAllProduct
+20220528	21:00:32	91af1c49-63c3-4f2c-9a13-dcb64f231905	GET	undefined	/api/user/getAllUsers%20
+20220528	21:00:39	99659da4-da54-4100-896d-a6c013a8d6af	GET	undefined	/api/user/getAllUsers%20
+20220528	21:00:54	f5e43cc6-6b2d-4ff8-b503-c06166e71025	GET	undefined	/api/user/getAllUsers
+20220528	21:02:21	3f7f859b-1937-4c83-adcf-e6e32f51050d	POST	undefined	/api/user/login%20
+20220528	21:02:28	80e54356-3c03-481f-874b-cc3f886594ce	POST	undefined	/api/user/login
+20220528	21:08:44	98bc2429-a357-4b20-94b6-918ddb1525ea	POST	undefined	/api/product/addProduct
+20220528	21:18:35	1f276836-11fb-4ff1-949d-d3dd458b0272	POST	undefined	/api/product/addProduct
+20220528	21:19:20	bc41b3bc-3f68-4aec-887f-113d987cda0f	POST	undefined	/api/product/addProduct
+20220528	21:20:48	e34be76a-e234-4f70-9b8e-56b9e3f791fe	POST	undefined	/api/product/addProduct
+20220528	21:21:53	115b0a6b-1666-4f91-9783-86db03616141	POST	undefined	/api/product/addProduct
+20220528	21:32:00	7dd3e2d1-6ce5-49c4-8fe9-8e054fd1e644	POST	undefined	/api/product/addProduct
+20220528	21:37:31	66c58e50-6f9b-4e5c-94ef-d955d97e8996	GET	undefined	/uploads/2022-05-28T18:32:00.573ZAdedayo_Majeed.JPG

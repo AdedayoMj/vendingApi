@@ -58,6 +58,7 @@ router.use((req, res, next) => {
 /** Parse the body of the request */
 router.use(express.urlencoded({ extended: true }))
 router.use(express.json())
+router.use('/uploads',express.static('uploads'))
 
 /** Rules of our API */
 router.use((req, res, next) => {

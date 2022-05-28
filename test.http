@@ -25,11 +25,12 @@ content-type: application/json
 
 ###
 
-PUT http://localhost:3220/api/user/updateUser/62921bdeef3dadd88dc2217e  HTTP/1.1
+PUT http://localhost:3220/api/user/updateUser/6292492a68119b2284a5fc8a  HTTP/1.1
 content-type: application/json
-Authorization: Baerer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJuYW1lIjoibWFqZWVkIiwicm9sZSI6ImJ1eWVyIn0sImlhdCI6MTY1Mzc1MzkwNSwiZXhwIjozMzA3ODY3ODEwLCJpc3MiOiJhZGVkYXlvYWRlZ2JveWUifQ.FSavN66jcTr5fYRJ6y52rdiYx4hR-1-gR6Yjd2ucCdA
+Authorization: Baerer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiaWtyYW0iLCJyb2xlIjoic2VsbGVyIiwiaWF0IjoxNjUzNzU0MTYwLCJleHAiOjMzMDc4NjgzMjAsImlzcyI6ImFkZWRheW9hZGVnYm95ZSJ9._GAFt32UNxU2D66vECih-GIN-NKkzn2UM05cqpDtQYM
+
 {
-    "role": "seller"
+    "role": "buyer"
 }
 
 ###
@@ -51,6 +52,7 @@ Authorization: Baerer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibWFyeWFtI
 PUT http://localhost:3220/api/transact/deposit/62921bdeef3dadd88dc2217e  HTTP/1.1
 content-type: application/json
 Authorization: Baerer eeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJuYW1lIjoibWFqZWVkIiwicm9sZSI6ImJ1eWVyIn0sImlhdCI6MTY1Mzc1MzkwNSwiZXhwIjozMzA3ODY3ODEwLCJpc3MiOiJhZGVkYXlvYWRlZ2JveWUifQ.FSavN66jcTr5fYRJ6y52rdiYx4hR-1-gR6Yjd2ucCdA
+
 {
     "deposit": 100
 }
@@ -59,7 +61,7 @@ Authorization: Baerer eeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJu
 
 POST http://localhost:3220/api/product/addProduct  HTTP/1.1
 content-type: application/json
-Authorization: Baerer 
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiaWtyYW0iLCJyb2xlIjoic2VsbGVyIiwiaWF0IjoxNjUzNzU0MTYwLCJleHAiOjMzMDc4NjgzMjAsImlzcyI6ImFkZWRheW9hZGVnYm95ZSJ9._GAFt32UNxU2D66vECih-GIN-NKkzn2UM05cqpDtQYM
 
 {
     "productName": "yeah bread",

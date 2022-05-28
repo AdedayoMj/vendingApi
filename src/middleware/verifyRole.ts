@@ -15,8 +15,6 @@ const verifyRoles = (...allowedRoles: any[]) => {
 
         const rolesArray = [...allowedRoles]
 
-        console.log(...allowedRoles);
-
 
         const result = [role].map((role: any) => rolesArray.includes(role)).find((val: boolean) => val === true)
 

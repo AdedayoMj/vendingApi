@@ -2,9 +2,38 @@ import { NextFunction, Request, Response } from 'express';
 import logging from '../config/logging';
 import Product from '../models/product';
 import mongoose from 'mongoose';
+import multer from 'multer'
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, './uploads/');
+    },
+    filename: (req, file, cb) => {
+        cb(null, `${new Date().toISOString()}${file.originalname}`);
+    }
+})
+
+const fileFilter = (req: any, file: { mimetype: string; }, cb: (arg0: null, arg1: boolean) => void) => {
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+        cb(null, true)
+    } else {
+        cb(null, false)
+    }
+}
+
+const upload = multer({
+    storage: storage,
+    limits: {
+        fileSize: 1024 * 1024 * 2
+    },
+    fileFilter: fileFilter
+
+});
 
 const addProduct = (req: Request, res: Response, next: NextFunction) => {
     logging.info('Attempting to create new products ...');
+
+    console.log(req.file)
 
     let { productName, amountAvailable, cost, sellerId } = req.body;
 
@@ -13,7 +42,8 @@ const addProduct = (req: Request, res: Response, next: NextFunction) => {
         productName,
         amountAvailable,
         cost,
-        sellerId
+        sellerId,
+        productImage: req.file?.path
     });
 
     return product
@@ -158,6 +188,7 @@ const deleteProduct = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export default {
+    upload,
     addProduct,
     readProduct,
     readAllProduct,

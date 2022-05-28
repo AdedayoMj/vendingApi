@@ -20,8 +20,6 @@ const checkJWT = (req: Request, res: Response, next: NextFunction) => {
             } else {
                 
                 res.locals.jwt = decoded;
-                console.log(decoded);
-    
                 
                 next();
             }

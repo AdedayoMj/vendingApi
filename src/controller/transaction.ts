@@ -44,7 +44,7 @@ const buyProduct = async (req: Request, res: Response, next: NextFunction) => {
                 return res.status(200).json({
                     productPurchased: productName,
                     amountSpent: productTotalPrice,
-                    availableBalance: checkAmountToDepositEnabled ? calculateChange : 0
+                    availableBalance: checkAmountToDepositEnabled
                 });
             })
         }

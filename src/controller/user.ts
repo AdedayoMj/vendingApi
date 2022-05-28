@@ -4,21 +4,8 @@ import User from '../models/users'
 import mongoose from 'mongoose'
 import bcryptjs from 'bcryptjs';
 import signJWT from '../_helpers/signJWT';
-import { request } from 'http';
 
 
-// const jwt = require('jsonwebtoken');
-// const bcrypt = require('bcrypt');
-
-
-
-// async function hashPassword(password) {
-//   return await bcrypt.hash(password, 10);
-// }
-
-// async function validatePassword(plainPassword, hashedPassword) {
-//   return await bcrypt.compare(plainPassword, hashedPassword);
-// }
 
 
 const NAMESPACE = 'Users';
@@ -80,7 +67,7 @@ const registerUser = (req: Request, res: Response, next: NextFunction) => {
   })
 }
 
-const loginUser = (req: Request, res: Response, next: NextFunction) => {
+const loginUser = async (req: Request, res: Response, next: NextFunction) => {
   logging.info('Attempting to login...')
   let { name, password } = req.body;
 
@@ -90,7 +77,7 @@ const loginUser = (req: Request, res: Response, next: NextFunction) => {
     .then((users) => {
       if (users.length !== 1) {
         return res.status(401).json({
-          message: 'Unauthorized'
+          message: 'Wrong user name'
         });
       }
 
@@ -118,7 +105,7 @@ const loginUser = (req: Request, res: Response, next: NextFunction) => {
       });
     })
     .catch((err) => {
-      console.log(err);
+
       res.status(500).json({
         error: err
       });
