@@ -12,6 +12,6 @@ router.get('/read/:productID', product_1.default.readProduct);
 router.post('/addProduct', checkJWT_1.default, product_1.default.addProduct);
 router.post('/query', checkJWT_1.default, product_1.default.query);
 router.patch('/update/:statID', checkJWT_1.default, product_1.default.update);
-router.delete('/:statID', product_1.default.deleteStats);
+router.delete('/:statID', checkJWT_1.default, product_1.default.deleteStats);
 module.exports = router;
 //# sourceMappingURL=product.js.map

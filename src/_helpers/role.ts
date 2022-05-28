@@ -1,20 +1,7 @@
-import {AccessControl} from 'accesscontrol'
 
+ const ROLES_LIST = {
+    seller: "seller",
+    buyer: "buyer"
+}
 
-const ac = new AccessControl();
- 
-exports.roles = (function() {
-ac.grant('buyer')
- .readAny('profile')
- .updateOwn('updateUser')
- .createAny('buy')
- 
-ac.grant('seller')
- .readAny("profile")
- .createOwn()
- .updateOwn("profile")
- .deleteOwn("profile")
-
- 
-return ac;
-})();
+export default ROLES_LIST

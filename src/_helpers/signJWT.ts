@@ -19,13 +19,14 @@ const signJWT = (user: IUser, callback: (error: Error | null, token: string | nu
     try {
         jwt.sign(
             {
-                name: user.name
+                name: user.name,
+                role: user.role
             },
             process.env.SERVER_TOKEN_SECRET as string,
             {
                 issuer: config.server.token.issuer,
                 algorithm: 'HS256',
-                expiresIn: expirationTimeInSeconds
+                expiresIn: expirationTimeInSeconds,
             },
             (error, token) => {
                 if (error) {

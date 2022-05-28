@@ -4,11 +4,11 @@ import Product from '../models/product';
 import mongoose from 'mongoose';
 
 const addProduct = (req: Request, res: Response, next: NextFunction) => {
-    logging.info('Attempting to create new stats ...');
+    logging.info('Attempting to create new products ...');
 
-    let { productName,amountAvailable,cost,sellerId} = req.body;
+    let { productName, amountAvailable, cost, sellerId } = req.body;
 
-    const stats = new Product({
+    const product = new Product({
         _id: new mongoose.Types.ObjectId(),
         productName,
         amountAvailable,
@@ -16,7 +16,7 @@ const addProduct = (req: Request, res: Response, next: NextFunction) => {
         sellerId
     });
 
-    return stats
+    return product
         .save()
         .then((newProduct) => {
             logging.info(`New product added`);
@@ -37,14 +37,13 @@ const readProduct = (req: Request, res: Response, next: NextFunction) => {
     logging.info(`Incoming query for product with id ${_id}`);
 
     Product.findById(_id)
-        .populate('reader')
         .exec()
-        .then((stats) => {
-            if (stats) {
-                return res.status(200).json({ stats });
+        .then((product) => {
+            if (product) {
+                return res.status(200).json({ product });
             } else {
                 return res.status(404).json({
-                    error: 'Stats not found.'
+                    error: 'product not found.'
                 });
             }
         })
@@ -58,15 +57,14 @@ const readProduct = (req: Request, res: Response, next: NextFunction) => {
 };
 
 const readAllProduct = (req: Request, res: Response, next: NextFunction) => {
-    logging.info('Returning all blogs ');
+    logging.info('Returning all products ');
 
     Product.find()
-        .populate('reader')
         .exec()
-        .then((stats) => {
+        .then((product) => {
             return res.status(200).json({
-                count: stats.length,
-                stats: stats
+                count: product.length,
+                product: product
             });
         })
         .catch((error) => {
@@ -82,12 +80,11 @@ const query = (req: Request, res: Response, next: NextFunction) => {
     logging.info('Query route called');
 
     Product.find(req.body)
-        .populate('reader')
         .exec()
-        .then((stats) => {
+        .then((product) => {
             return res.status(200).json({
-                count: stats.length,
-                stats: stats
+                count: product.length,
+                product: product
             });
         })
         .catch((error) => {
@@ -99,22 +96,22 @@ const query = (req: Request, res: Response, next: NextFunction) => {
         });
 };
 
-const update = (req: Request, res: Response, next: NextFunction) => {
+const updateProduct = (req: Request, res: Response, next: NextFunction) => {
     logging.info('Update route called');
 
-    const _id = req.params.statID;
+    const _id = req.params.productID;
 
     Product.findById(_id)
         .exec()
-        .then((stats) => {
-            if (stats) {
-                stats.set(req.body);
-                stats.save()
+        .then((product) => {
+            if (product) {
+                product.set(req.body);
+                product.save()
                     .then((savedCourse) => {
                         logging.info(`Html stats with id ${_id} updated`);
 
                         return res.status(201).json({
-                            stats: savedCourse
+                            product: savedCourse
                         });
                     })
                     .catch((error) => {
@@ -139,16 +136,16 @@ const update = (req: Request, res: Response, next: NextFunction) => {
         });
 };
 
-const deleteStats= (req: Request, res: Response, next: NextFunction) => {
+const deleteProduct = (req: Request, res: Response, next: NextFunction) => {
     logging.warn('Delete route called');
 
-    const _id = req.params.statID;
+    const _id = req.params.productID;
 
     Product.findByIdAndDelete(_id)
         .exec()
         .then(() => {
             return res.status(201).json({
-                message: 'html stats deleted'
+                message: 'product deleted'
             });
         })
         .catch((error) => {
@@ -165,6 +162,6 @@ export default {
     readProduct,
     readAllProduct,
     query,
-    update,
-    deleteStats
+    updateProduct,
+    deleteProduct
 };

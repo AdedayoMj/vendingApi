@@ -13,3 +13,10 @@ export default interface ProductData extends Document {
     cost: number;
     sellerId: any;
 }
+
+export default interface TransactionData extends Document {
+    productName: string;
+    quantityPurchased: number;
+    cost: number;
+    buyerId: string;
+}

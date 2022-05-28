@@ -6,9 +6,8 @@ const ProductSchema: Schema = new Schema(
 
     productName: { type: String, required: true, unique: true },
     amountAvailable: { type: Number, required: true },
-    cost: { type: Number, required: true  },
-    role: { type: String,  default: 'buyer'  },
-    sellerid: { type:Schema.Types.ObjectId, ref: "User" }
+    cost: { type: Number, required: true },
+    sellerId: { type: String, required: true, }
   },
   {
     timestamps: true
