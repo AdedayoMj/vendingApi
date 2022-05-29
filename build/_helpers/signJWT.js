@@ -12,15 +12,15 @@ const signJWT = (user, callback) => {
     var expirationTime = timeSinceEpoch + Number(config_1.default.server.token.expireTime) * 100000;
     var expirationTimeInSeconds = Math.floor(expirationTime / 1000);
     logging_1.default.info(NAMESPACE, `Attempting to sign token for ${user._id}`);
-    // roles param can be a single role string (e.g. Role.User or 'User') 
-    // or an array of roles (e.g. [Role.Admin, Role.User] or ['Admin', 'User'])
     try {
         jsonwebtoken_1.default.sign({
-            name: user.name
+            _id: user._id,
+            name: user.name,
+            role: user.role
         }, process.env.SERVER_TOKEN_SECRET, {
             issuer: config_1.default.server.token.issuer,
             algorithm: 'HS256',
-            expiresIn: expirationTimeInSeconds
+            expiresIn: expirationTimeInSeconds,
         }, (error, token) => {
             if (error) {
                 callback(error, null);

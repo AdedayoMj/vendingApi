@@ -28,8 +28,8 @@ const ProductSchema = new mongoose_1.Schema({
     productName: { type: String, required: true, unique: true },
     amountAvailable: { type: Number, required: true },
     cost: { type: Number, required: true },
-    role: { type: String, default: 'buyer' },
-    sellerid: { type: mongoose_1.Schema.Types.ObjectId, ref: "User" }
+    productImage: { type: String, required: false },
+    sellerId: { type: String, required: true, }
 }, {
     timestamps: true
 });

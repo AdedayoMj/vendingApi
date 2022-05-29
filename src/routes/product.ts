@@ -9,11 +9,10 @@ import ROLES_LIST from '../_helpers/role'
 
 const router = express.Router();
 
-router.get('/getAllProduct', controller.readAllProduct);
-router.get('/read/:productID', controller.readProduct);
+router.get('/getAllProduct', controller.getAllProduct);
+router.get('/findProduct/:productID', controller.findProduct);
 router.post('/addProduct', checkJWT, controller.upload.single('productImage'), verifyRole(ROLES_LIST.seller) , controller.addProduct);
-router.post('/query', checkJWT, verifyRole(ROLES_LIST.seller), controller.query);
-router.patch('/updateProduct/:productID', checkJWT, verifyRole(ROLES_LIST.seller), controller.updateProduct);
+router.put('/updateProduct/:productID', checkJWT, verifyRole(ROLES_LIST.seller), controller.updateProduct);
 router.delete('/:productID', checkJWT, verifyRole(ROLES_LIST.seller), controller.deleteProduct);
 
 export = router;

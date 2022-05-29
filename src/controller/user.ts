@@ -5,25 +5,12 @@ import mongoose from 'mongoose'
 import bcryptjs from 'bcryptjs';
 import signJWT from '../_helpers/signJWT';
 
+import Joi from 'joi';
 
 
 
-const NAMESPACE = 'Users';
-
-const validateToken = (req: Request, res: Response, next: NextFunction) => {
-  logging.info(NAMESPACE, 'Token validated, user authorized.');
-
-  return res.status(200).json({
-    message: 'Token(s) validated'
-  });
-}
-
-
-
-
-const registerUser = (req: Request, res: Response, next: NextFunction) => {
+const registerUser = async (req: Request, res: Response, next: NextFunction) => {
   logging.info('Attempting to create user ...')
-
 
   let {
     name,
@@ -32,194 +19,168 @@ const registerUser = (req: Request, res: Response, next: NextFunction) => {
     password
   } = req.body
 
-  bcryptjs.hash(password, 10, (hashError, hash) => {
-    if (hashError) {
-      return res.status(401).json({
-        message: hashError.message,
-        error: hashError
+  const schema = Joi.object({
+    name: Joi.string().min(3).max(30).required(),
+    password: Joi.string().min(3).max(30).required(),
+    deposit: Joi.number().min(1).max(30)
+  }).keys({
+    role: Joi.string().valid('buyer', 'seller'),
+  });
+
+  const { error } = schema.validate(req.body)
+  if (error) return res.status(400).send(error.details[0].message)
+
+  let user = await User.findOne({ name })
+  if (user) return res.status(400).send('User already exist ...');
+  const _user = new User({
+    _id: new mongoose.Types.ObjectId(),
+    name,
+    password,
+    deposit,
+    role
+  })
+  const salt = await bcryptjs.genSalt(10)
+  _user.password = await bcryptjs.hash(_user.password, salt)
+
+  const userData = await _user.save()
+
+  signJWT(userData, (_error, token) => {
+    if (_error) {
+      return res.status(500).json({
+        message: _error.message,
+        error: _error
+      });
+    } else if (token) {
+      return res.status(200).json({
+        message: 'Auth successful',
+        token: token,
+        user: userData
       });
     }
-
-
-
-    const _user = new User({
-      _id: new mongoose.Types.ObjectId(),
-      name,
-      password: hash,
-      deposit,
-      role
-    })
-
-    return _user
-      .save()
-      .then((newUser) => {
-        logging.info('New user  data created')
-
-        return res.status(201).json({ user: newUser })
-      })
-      .catch((error) => {
-        logging.error(error.message)
-
-        return res.status(500).json({
-          message: error.message
-        })
-      })
-  })
+  });
 }
 
 const loginUser = async (req: Request, res: Response, next: NextFunction) => {
   logging.info('Attempting to login...')
+  console.log(req.body);
+  
+  try {
+    
+  
   let { name, password } = req.body;
 
+  const schema = Joi.object({
+    name: Joi.string().min(3).max(30).required(),
+    password: Joi.string().min(3).max(30).required(),
+  })
 
-  User.find({ name })
-    .exec()
-    .then((users) => {
-      if (users.length !== 1) {
-        return res.status(401).json({
-          message: 'Wrong user name'
-        });
-      }
+  const { error } = schema.validate(req.body)
+  if (error) return res.status(400).send(error.details[0].message)
 
-      bcryptjs.compare(password, users[0].password, (error, result) => {
-        if (error) {
-          return res.status(401).json({
-            message: 'Password Mismatch'
-          });
-        } else if (result) {
-          signJWT(users[0], (_error, token) => {
-            if (_error) {
-              return res.status(500).json({
-                message: _error.message,
-                error: _error
-              });
-            } else if (token) {
-              return res.status(200).json({
-                message: 'Auth successful',
-                token: token,
-                user: users[0]
-              });
-            }
-          });
-        }
+  let user = await User.findOne({ name })
+  if (!user) return res.status(400).send({ message: 'Invalid  name or password...' });
+
+
+  const isValid = await bcryptjs.compare(password, user.password)
+  if (!isValid) return res.status(401).json({ message: 'Password Mismatch' });
+  signJWT(user, (_error, token) => {
+    if (_error) {
+      return res.status(500).json({
+        message: _error.message,
+        error: _error
       });
-    })
-    .catch((err) => {
-
-      res.status(500).json({
-        error: err
+    } else if (token) {
+      return res.status(200).json({
+        message: 'Auth successful',
+        token: token,
+        user: user
       });
-    });
+    }
+
+
+  });
+
+} catch (error) {
+  res.status(500).send({ message: error});
+}
 
 }
 
 
 /** find a single user*/
-const findUser = (req: Request, res: Response, next: NextFunction) => {
-  const _id = req.params.userID
-  logging.info(`Incoming read for user data with id ${_id}`)
+const findUser = async (req: Request, res: Response, next: NextFunction) => {
+  const name = req.body.name
+  logging.info(`Incoming read for user data with username ${name}`)
+  try {
+    let userData = await User.findOne({ name }).exec()
+    if (!userData) return res.status(400).send({ message: 'User not found...' });
+    return res.status(200).json({ userData });
+  } catch (error) {
+    logging.error(error)
+    return res.status(500).json(error)
+  }
 
-  User.findById(_id)
-    .select('-password')
-    .populate('name')
-    .exec()
-    .then((user) => {
-      if (user) {
-        return res.status(200).json({ user })
-      } else {
-        return res.status(404).json({
-          error: 'Information not found.'
-        })
-      }
-    })
-    .catch((error) => {
-      logging.error(error.message)
-
-      return res.status(500).json({
-        error: error.message
-      })
-    })
 }
 
 /** update user's infomation */
-const update = (req: Request, res: Response, next: NextFunction) => {
+const update = async (req: Request, res: Response, next: NextFunction) => {
   logging.info('Update route called')
 
   const _id = req.params.userID
 
-  User.findByIdAndUpdate(_id, { $set: req.body }, { new: true }).then((response) => {
+  const schema = Joi.object({
+    name: Joi.string().min(3).max(30).required(),
+    password: Joi.string().min(3).max(30).required(),
+    deposit: Joi.number().min(1).max(30)
+  }).keys({
+    role: Joi.string().valid('buyer', 'seller'),
+  });
+  const { error } = schema.validate(req.body)
+  if (error) return res.status(400).send(error.details[0].message)
+  try {
 
-    if (response) {
+    let response = await User.findByIdAndUpdate(_id, { $set: req.body }, { new: true })
+    if (!response) return res.status(400).send({ message: 'User information not updated!' });
+    return res.status(201).json({ message: 'User data have been modified!' })
 
-      return res.status(201).json({
-        message: 'User information updated',
-
-      })
-
-    } else {
-      logging.error(`Something went wrong while updating`)
-      return res.status(401).json({
-        message: 'NOT UPDATED'
-      })
-    }
-
-  }).catch((error) => {
-    logging.error(error.message)
+  } catch (error) {
+    logging.error(error)
 
     return res.status(500).json({
-      message: error.message
+      message: error
     })
-  })
+  }
+
 }
 
 /** get all single users*/
-const getAllUsers = (req: Request, res: Response, next: NextFunction) => {
+const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
   logging.info('Returning all Users data information ')
-
-  User.find()
-    .select('-password')
-    .populate('name')
-    .exec()
-    .then((user) => {
-      return res.status(200).json({
-        count: user.length,
-        user: user
-      })
-    })
-    .catch((error) => {
-      logging.error(error.message)
-
-      return res.status(500).json({
-        message: error.message
-      })
-    })
+  try {
+    let users = await User.find().exec()
+    if (!users) return res.status(400).send({ message: 'User list does not exist...' });
+    return res.status(200).json({ users });
+  } catch (error) {
+    logging.error(error)
+    return res.status(500).json(error)
+  }
 }
 
 /** delete a single user*/
 
-const deleteUserData = (req: Request, res: Response, next: NextFunction) => {
+const deleteUserData = async (req: Request, res: Response, next: NextFunction) => {
   logging.warn('Delete route called')
 
   const _id = req.params.userID
-
-  User.findByIdAndDelete(_id)
-    .exec()
-    .then(() => {
-      return res.status(201).json({
-        message: 'User data deleted'
-      })
-    })
-    .catch((error) => {
-      logging.error(error.message)
-
-      return res.status(500).json({
-        message: error.message
-      })
-    })
+  try {
+    await User.findByIdAndDelete(_id).exec()
+    return res.status(201).json({ message: 'User data deleted' })
+  } catch (error) {
+    return res.status(500).json({ message: error })
+  }
 }
 
 export default {
-  validateToken,
   registerUser,
   loginUser,
   findUser,

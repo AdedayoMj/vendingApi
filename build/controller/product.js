@@ -6,146 +6,133 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const logging_1 = __importDefault(require("../config/logging"));
 const product_1 = __importDefault(require("../models/product"));
 const mongoose_1 = __importDefault(require("mongoose"));
-const addProduct = (req, res, next) => {
-    logging_1.default.info('Attempting to create new stats ...');
-    let { productName, amountAvailable, cost, sellerId } = req.body;
-    const stats = new product_1.default({
-        _id: new mongoose_1.default.Types.ObjectId(),
-        productName,
-        amountAvailable,
-        cost,
-        sellerId
-    });
-    return stats
-        .save()
-        .then((newProduct) => {
-        logging_1.default.info(`New product added`);
-        return res.status(201).json({ product: newProduct });
-    })
-        .catch((error) => {
-        logging_1.default.error(error.message);
-        return res.status(500).json({
-            message: error.message
-        });
-    });
+const multer_1 = __importDefault(require("multer"));
+const joi_1 = __importDefault(require("joi"));
+const storage = multer_1.default.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, './uploads/');
+    },
+    filename: (req, file, cb) => {
+        cb(null, `${new Date().toISOString()}${file.originalname}`);
+    }
+});
+const fileFilter = (req, file, cb) => {
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+        cb(null, true);
+    }
+    else {
+        cb(null, false);
+    }
 };
-const readProduct = (req, res, next) => {
+const upload = (0, multer_1.default)({
+    storage: storage,
+    limits: {
+        fileSize: 1024 * 1024 * 2
+    },
+    fileFilter: fileFilter
+});
+const addProduct = async (req, res, next) => {
+    var _a;
+    logging_1.default.info('Attempting to create new products ...');
+    try {
+        const schema = joi_1.default.object({
+            productName: joi_1.default.string().min(5).max(30).required(),
+            amountAvailable: joi_1.default.number().min(1).max(30).required(),
+            cost: joi_1.default.number().min(1).max(30).required(),
+            sellerId: joi_1.default.string().min(1).max(30),
+        });
+        const { error } = schema.validate(req.body);
+        if (error)
+            return res.status(400).send(error.details[0].message);
+        let { productName, amountAvailable, cost, sellerId } = req.body;
+        const product = new product_1.default({
+            _id: new mongoose_1.default.Types.ObjectId(),
+            productName,
+            amountAvailable,
+            cost,
+            sellerId,
+            productImage: (_a = req.file) === null || _a === void 0 ? void 0 : _a.path
+        });
+        await product.save();
+        return res.status(201).json({ message: "Product added" });
+    }
+    catch (error) {
+        logging_1.default.error(error);
+        return res.status(500).json({
+            message: error
+        });
+    }
+};
+const findProduct = async (req, res, next) => {
     const _id = req.params.productID;
     logging_1.default.info(`Incoming query for product with id ${_id}`);
-    product_1.default.findById(_id)
-        .populate('reader')
-        .exec()
-        .then((stats) => {
-        if (stats) {
-            return res.status(200).json({ stats });
-        }
-        else {
-            return res.status(404).json({
-                error: 'Stats not found.'
-            });
-        }
-    })
-        .catch((error) => {
-        logging_1.default.error(error.message);
-        return res.status(500).json({
-            error: error.message
-        });
-    });
+    try {
+        let productData = await product_1.default.findOne({ _id }).exec();
+        if (!productData)
+            return res.status(400).send({ message: 'Product not found...' });
+        return res.status(200).json({ productData });
+    }
+    catch (error) {
+        logging_1.default.error(error);
+        return res.status(500).json(error);
+    }
 };
-const readAllProduct = (req, res, next) => {
-    logging_1.default.info('Returning all blogs ');
-    product_1.default.find()
-        .populate('reader')
-        .exec()
-        .then((stats) => {
-        return res.status(200).json({
-            count: stats.length,
-            stats: stats
-        });
-    })
-        .catch((error) => {
-        logging_1.default.error(error.message);
-        return res.status(500).json({
-            message: error.message
-        });
-    });
+const getAllProduct = async (req, res, next) => {
+    logging_1.default.info('Returning all products ');
+    try {
+        let products = await product_1.default.find().exec();
+        if (!products)
+            return res.status(400).send({ message: 'Product list does not exist...' });
+        return res.status(200).json({ count: products.length,
+            products: products });
+    }
+    catch (error) {
+        logging_1.default.error(error);
+        return res.status(500).json(error);
+    }
 };
-const query = (req, res, next) => {
-    logging_1.default.info('Query route called');
-    product_1.default.find(req.body)
-        .populate('reader')
-        .exec()
-        .then((stats) => {
-        return res.status(200).json({
-            count: stats.length,
-            stats: stats
-        });
-    })
-        .catch((error) => {
-        logging_1.default.error(error.message);
-        return res.status(500).json({
-            message: error.message
-        });
+const updateProduct = async (req, res, next) => {
+    logging_1.default.info('Attempting to update product ...');
+    const _id = req.params.productID;
+    const schema = joi_1.default.object({
+        productName: joi_1.default.string().min(5).max(30),
+        amountAvailable: joi_1.default.number().min(1).max(30),
+        cost: joi_1.default.number().min(1).max(30),
+        sellerId: joi_1.default.string().min(1).max(30),
     });
+    const { error } = schema.validate(req.body);
+    if (error)
+        return res.status(400).send(error.details[0].message);
+    try {
+        let response = await product_1.default.findByIdAndUpdate(_id, { $set: req.body }, { new: true });
+        if (!response)
+            return res.status(400).send({ message: 'Product information not updated!' });
+        return res.status(201).json({ message: 'Product data have been modified!' });
+    }
+    catch (error) {
+        logging_1.default.error(error);
+        return res.status(500).json({
+            message: error
+        });
+    }
 };
-const update = (req, res, next) => {
-    logging_1.default.info('Update route called');
-    const _id = req.params.statID;
-    product_1.default.findById(_id)
-        .exec()
-        .then((stats) => {
-        if (stats) {
-            stats.set(req.body);
-            stats.save()
-                .then((savedCourse) => {
-                logging_1.default.info(`Html stats with id ${_id} updated`);
-                return res.status(201).json({
-                    stats: savedCourse
-                });
-            })
-                .catch((error) => {
-                logging_1.default.error(error.message);
-                return res.status(500).json({
-                    message: error.message
-                });
-            });
-        }
-        else {
-            return res.status(401).json({
-                message: 'NOT FOUND'
-            });
-        }
-    })
-        .catch((error) => {
-        logging_1.default.error(error.message);
-        return res.status(500).json({
-            message: error.message
-        });
-    });
-};
-const deleteStats = (req, res, next) => {
-    logging_1.default.warn('Delete route called');
-    const _id = req.params.statID;
-    product_1.default.findByIdAndDelete(_id)
-        .exec()
-        .then(() => {
-        return res.status(201).json({
-            message: 'html stats deleted'
-        });
-    })
-        .catch((error) => {
-        logging_1.default.error(error.message);
-        return res.status(500).json({
-            message: error.message
-        });
-    });
+const deleteProduct = async (req, res, next) => {
+    logging_1.default.warn('Delete product ... ');
+    const _id = req.params.productID;
+    try {
+        await product_1.default.findByIdAndDelete(_id).exec();
+        return res.status(201).json({ message: 'User data deleted' });
+    }
+    catch (error) {
+        return res.status(500).json({ message: error });
+    }
 };
 exports.default = {
+    upload,
     addProduct,
-    readProduct,
-    readAllProduct,
-    query,
-    update,
-    deleteStats
+    findProduct,
+    getAllProduct,
+    updateProduct,
+    deleteProduct
 };
 //# sourceMappingURL=product.js.map

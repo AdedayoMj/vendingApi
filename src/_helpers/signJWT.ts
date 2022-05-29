@@ -13,12 +13,11 @@ const signJWT = (user: IUser, callback: (error: Error | null, token: string | nu
 
     logging.info(NAMESPACE, `Attempting to sign token for ${user._id}`);
 
-    // roles param can be a single role string (e.g. Role.User or 'User') 
-    // or an array of roles (e.g. [Role.Admin, Role.User] or ['Admin', 'User'])
 
     try {
         jwt.sign(
             {
+                _id: user._id,
                 name: user.name,
                 role: user.role
             },
@@ -32,12 +31,12 @@ const signJWT = (user: IUser, callback: (error: Error | null, token: string | nu
                 if (error) {
                     callback(error, null);
                 } else if (token) {
-                    
+
                     callback(null, token);
                 }
             }
         );
-    } catch (error:any) {
+    } catch (error: any) {
         logging.error(NAMESPACE, error.message);
         callback(error, null);
     }
