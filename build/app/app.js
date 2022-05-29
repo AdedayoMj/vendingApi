@@ -10,6 +10,7 @@ const helmet_1 = __importDefault(require("helmet"));
 const user_1 = __importDefault(require("../routes/user"));
 const product_1 = __importDefault(require("../routes/product"));
 const transaction_1 = __importDefault(require("../routes/transaction"));
+const auth_1 = __importDefault(require("../routes/auth"));
 const errorHandler = require('../config/errorHandler');
 // const { logger } = require('./config/logEvents');
 const app = (0, express_1.default)();
@@ -40,6 +41,7 @@ app.use((req, res, next) => {
     next();
 });
 /** Routes */
+app.use('/api/auth', auth_1.default);
 app.use('/api/user', user_1.default);
 app.use('/api/transact', transaction_1.default);
 app.use('/api/product', product_1.default);

@@ -47,18 +47,18 @@ describe('GET /findUser', () => {
     });
     // console.log(token);
 
-    test('It should require authorization', async() => {
-        await request(app)
-           .get('/api/product/getAllProduct')
-           .set('Accept', 'application/json')
-           .then((response: { statusCode: any; }) => {
-               console.log(response);
+//     test('It should require authorization', async() => {
+//         await request(app)
+//            .get('/api/product/getAllProduct')
+//            .set('Accept', 'application/json')
+//            .then((response: { statusCode: any; }) => {
+//                console.log(response);
                
-               expect(response.statusCode).toBe(201);
-           });
+//                expect(response.statusCode).toBe(201);
+//            });
 
        
-   });
+//    });
     // test('It should require authorization', async() => {
     //      await request(app)
     //         .post('/api/user/login').send({ name: "irf", password:'irfan' })

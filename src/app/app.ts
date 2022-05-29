@@ -2,8 +2,6 @@
 import http from 'http'
 import express from 'express'
 import logging from '../config/logging'
-import config from '../config/config'
-import mongoose from 'mongoose'
 import cors from 'cors'
 import helmet from 'helmet'
 
@@ -11,6 +9,7 @@ import helmet from 'helmet'
 import userRoutes from '../routes/user'
 import productsRoutes from '../routes/product'
 import transactionsRoutes from '../routes/transaction'
+import authRoutes from '../routes/auth'
 
 
 const errorHandler = require('../config/errorHandler')
@@ -58,6 +57,7 @@ app.use((req, res, next) => {
 })
 
 /** Routes */
+app.use('/api/auth', authRoutes)
 app.use('/api/user', userRoutes)
 app.use('/api/transact', transactionsRoutes)
 app.use('/api/product', productsRoutes)

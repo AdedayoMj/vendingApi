@@ -8,8 +8,6 @@ const checkJWT_1 = __importDefault(require("../middleware/checkJWT"));
 const verifyRole_1 = __importDefault(require("../middleware/verifyRole"));
 const role_1 = __importDefault(require("../_helpers/role"));
 const router = express_1.default.Router();
-router.post('/login', user_1.default.loginUser);
-router.post('/register', user_1.default.registerUser);
 router.get('/findUser', checkJWT_1.default, user_1.default.findUser);
 router.put('/updateUser/:userID', checkJWT_1.default, (0, verifyRole_1.default)(role_1.default.buyer, role_1.default.seller), user_1.default.update);
 router.delete('/deleteUser/:userID', checkJWT_1.default, user_1.default.deleteUserData);
