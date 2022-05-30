@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const logging_1 = __importDefault(require("../config/logging"));
+const logging_1 = __importDefault(require("../settings/logging"));
 const users_1 = __importDefault(require("../models/users"));
 const joi_1 = __importDefault(require("joi"));
 /** find a single user*/
@@ -14,7 +14,7 @@ const findUser = async (req, res, next) => {
         let userData = await users_1.default.findOne({ name }).exec();
         if (!userData)
             return res.status(400).send({ message: 'User not found...' });
-        return res.status(200).json({ userData });
+        return res.status(200).json({ user: userData });
     }
     catch (error) {
         logging_1.default.error(error);
@@ -55,7 +55,7 @@ const getAllUsers = async (req, res, next) => {
         let users = await users_1.default.find().exec();
         if (!users)
             return res.status(400).send({ message: 'User list does not exist...' });
-        return res.status(200).json({ users });
+        return res.status(200).json({ user: users });
     }
     catch (error) {
         logging_1.default.error(error);

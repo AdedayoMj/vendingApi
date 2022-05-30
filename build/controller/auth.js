@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const logging_1 = __importDefault(require("../config/logging"));
+const logging_1 = __importDefault(require("../settings/logging"));
 const users_1 = __importDefault(require("../models/users"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
@@ -43,7 +43,7 @@ const registerUser = async (req, res, next) => {
             });
         }
         else if (token) {
-            return res.status(200).json({
+            return res.status(201).json({
                 message: 'Auth successful',
                 token: token,
                 user: userData
@@ -53,7 +53,6 @@ const registerUser = async (req, res, next) => {
 };
 const loginUser = async (req, res, next) => {
     logging_1.default.info('Attempting to login...');
-    console.log(req.body);
     try {
         let { name, password } = req.body;
         const schema = joi_1.default.object({
@@ -79,8 +78,7 @@ const loginUser = async (req, res, next) => {
             else if (token) {
                 return res.status(200).json({
                     message: 'Auth successful',
-                    token: token,
-                    user: user
+                    token: token
                 });
             }
         });
@@ -89,8 +87,17 @@ const loginUser = async (req, res, next) => {
         res.status(500).send({ message: error });
     }
 };
+const logOut = async (req, res, next) => {
+    logging_1.default.info('Attempting to logout...');
+    try {
+    }
+    catch (error) {
+        res.status(500).send({ message: error });
+    }
+};
 exports.default = {
     registerUser,
     loginUser,
+    logOut
 };
 //# sourceMappingURL=auth.js.map

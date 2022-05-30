@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const logging_1 = __importDefault(require("../config/logging"));
+const logging_1 = __importDefault(require("../settings/logging"));
 const product_1 = __importDefault(require("../models/product"));
 const transaction_1 = __importDefault(require("../models/transaction"));
 const users_1 = __importDefault(require("../models/users"));

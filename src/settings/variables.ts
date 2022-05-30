@@ -1,3 +1,4 @@
+import config from 'config';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -33,7 +34,7 @@ const SERVER_TOKEN_SECRET = process.env.SERVER_TOKEN_SECRET
 
 const SERVER = {
     hostname: SERVER_HOSTNAME,
-    port: SERVER_PORT,
+    port: config.get<number>('port'),
     token: {
       expireTime: SERVER_TOKEN_EXPIRETIME,
       issuer: SERVER_TOKEN_ISSUER,
@@ -42,9 +43,9 @@ const SERVER = {
   };
 
 
-const config = {
+const variableData = {
     mongo: MONGO,
     server: SERVER
   };
   
-  export default config
+  export default variableData

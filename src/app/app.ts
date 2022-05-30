@@ -1,10 +1,8 @@
 
-import http from 'http'
 import express from 'express'
-import logging from '../config/logging'
-import cors from 'cors'
+import logging from '../settings/logging'
 import helmet from 'helmet'
-
+import cors from 'cors'
 
 import userRoutes from '../routes/user'
 import productsRoutes from '../routes/product'
@@ -12,17 +10,25 @@ import transactionsRoutes from '../routes/transaction'
 import authRoutes from '../routes/auth'
 
 
-const errorHandler = require('../config/errorHandler')
-// const { logger } = require('./config/logEvents');
+const errorHandler = require('../settings/errorHandler')
+const { logger } = require('../settings/logEvents');
+const corsOptions = require('../settings/corsOptions');
+
+
 const app = express()
 
+/** Rules of our API */
+app.use(cors(corsOptions))
 
 
-/** allow cors */
-app.use(cors())
+
 
 /**use helmet to secure gttp headers */
 app.use(helmet())
+
+/**logger */
+// app.use(logger())
+
 
 
 /** Log the request */
@@ -43,18 +49,6 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use('/uploads',express.static('uploads'))
 
-/** Rules of our API */
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*')
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization')
-
-    if (req.method === 'OPTIONS') {
-        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET')
-        return res.status(200).json({})
-    }
-
-    next()
-})
 
 /** Routes */
 app.use('/api/auth', authRoutes)

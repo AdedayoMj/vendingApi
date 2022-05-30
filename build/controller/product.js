@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const logging_1 = __importDefault(require("../config/logging"));
+const logging_1 = __importDefault(require("../settings/logging"));
 const product_1 = __importDefault(require("../models/product"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const multer_1 = __importDefault(require("multer"));
@@ -70,7 +70,7 @@ const findProduct = async (req, res, next) => {
         let productData = await product_1.default.findOne({ _id }).exec();
         if (!productData)
             return res.status(400).send({ message: 'Product not found...' });
-        return res.status(200).json({ productData });
+        return res.status(200).json({ product: productData });
     }
     catch (error) {
         logging_1.default.error(error);
@@ -84,7 +84,7 @@ const getAllProduct = async (req, res, next) => {
         if (!products)
             return res.status(400).send({ message: 'Product list does not exist...' });
         return res.status(200).json({ count: products.length,
-            products: products });
+            product: products });
     }
     catch (error) {
         logging_1.default.error(error);

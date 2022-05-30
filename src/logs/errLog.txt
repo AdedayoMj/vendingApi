@@ -1,3 +1,6 @@
 20220528	21:18:35	ebad4b3b-a108-4eeb-a55d-799e408f0645	Error: ENOENT: no such file or directory, open 'uploaads/2022-05-28T18:18:35.231ZAdedayo_Majeed.JPG'
 20220528	21:19:20	d06f050a-6e75-4fa0-a2ca-467659a8633b	Error: ENOENT: no such file or directory, open 'uploaads/2022-05-28T18:19:20.938Zmimi.jpeg'
 20220528	21:20:48	ce4a9f8a-5737-4952-abcf-82145a9ffb84	Error: ENOENT: no such file or directory, open 'uploaads/2022-05-28T18:20:48.561Zmimi.jpeg'
+20220530	11:24:15	f939e53a-c5f5-42d6-a640-cf3cdd85adb1	Error: Not allowed by CORS
+20220530	11:36:36	badf9071-914d-4f15-bf50-ed967e1d9528	Error: Not allowed by CORS
+20220530	11:37:59	ef51d797-2562-4565-99bd-5ae64e2163b7	Error: Not allowed by CORS

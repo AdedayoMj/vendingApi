@@ -4,20 +4,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const logging_1 = __importDefault(require("../config/logging"));
-const cors_1 = __importDefault(require("cors"));
+const logging_1 = __importDefault(require("../settings/logging"));
 const helmet_1 = __importDefault(require("helmet"));
+const cors_1 = __importDefault(require("cors"));
 const user_1 = __importDefault(require("../routes/user"));
 const product_1 = __importDefault(require("../routes/product"));
 const transaction_1 = __importDefault(require("../routes/transaction"));
 const auth_1 = __importDefault(require("../routes/auth"));
-const errorHandler = require('../config/errorHandler');
-// const { logger } = require('./config/logEvents');
+const errorHandler = require('../settings/errorHandler');
+const { logger } = require('../settings/logEvents');
+const corsOptions = require('../settings/corsOptions');
 const app = (0, express_1.default)();
-/** allow cors */
-app.use((0, cors_1.default)());
+/** Rules of our API */
+app.use((0, cors_1.default)(corsOptions));
 /**use helmet to secure gttp headers */
 app.use((0, helmet_1.default)());
+/**logger */
+// app.use(logger())
 /** Log the request */
 app.use((req, res, next) => {
     logging_1.default.info(`METHOD: [${req.method}] - URL: [${req.url}] - IP: [${req.socket.remoteAddress}]`);
@@ -30,16 +33,6 @@ app.use((req, res, next) => {
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use(express_1.default.json());
 app.use('/uploads', express_1.default.static('uploads'));
-/** Rules of our API */
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-    if (req.method === 'OPTIONS') {
-        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
-        return res.status(200).json({});
-    }
-    next();
-});
 /** Routes */
 app.use('/api/auth', auth_1.default);
 app.use('/api/user', user_1.default);
