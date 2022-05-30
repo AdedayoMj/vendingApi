@@ -49,7 +49,7 @@ const registerUser = async (req: Request, res: Response, next: NextFunction) => 
                 error: _error
             });
         } else if (token) {
-            return res.status(200).json({
+            return res.status(201).json({
                 message: 'Auth successful',
                 token: token,
                 user: userData
@@ -60,7 +60,6 @@ const registerUser = async (req: Request, res: Response, next: NextFunction) => 
 
 const loginUser = async (req: Request, res: Response, next: NextFunction) => {
     logging.info('Attempting to login...')
-    console.log(req.body);
 
     try {
 
@@ -90,8 +89,7 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
             } else if (token) {
                 return res.status(200).json({
                     message: 'Auth successful',
-                    token: token,
-                    user: user
+                    token: token
                 });
             }
 
@@ -104,8 +102,20 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
 
 }
 
+const logOut = async (req: Request, res: Response, next: NextFunction) => {
+    logging.info('Attempting to logout...')
+
+    try {
+        
+    } catch (error) {
+        res.status(500).send({ message: error });
+    }
+
+
+}
+
 export default {
     registerUser,
     loginUser,
-
+    logOut
 }

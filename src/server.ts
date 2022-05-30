@@ -3,7 +3,7 @@ import http from 'http'
 import logging from './config/logging'
 import config from './config/config'
 import mongoose from 'mongoose'
-
+import cors from 'cors'
 
 
 
@@ -12,7 +12,8 @@ const app = require ('./app/app')
 /** Server Handling */
 const httpServer = http.createServer(app)
 
-
+/** allow cors */
+app.use(cors())
 
 /** Connect to Mongo */
 

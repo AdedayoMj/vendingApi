@@ -1,10 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
-import logging from './logging';
 
 const { logEvents } = require('./logEvents');
 
 const errorHandler = (err: any, req: Request, res: Response, next: NextFunction)=> {
-    logging.error(err.message)
+    logEvents(`${err.name}: ${err.message}`, 'errLog.txt');
     console.error(err.stack)
     res.status(500).send(err.message);
 }

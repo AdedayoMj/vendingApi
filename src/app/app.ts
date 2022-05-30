@@ -1,8 +1,6 @@
 
-import http from 'http'
 import express from 'express'
 import logging from '../config/logging'
-import cors from 'cors'
 import helmet from 'helmet'
 
 
@@ -13,16 +11,19 @@ import authRoutes from '../routes/auth'
 
 
 const errorHandler = require('../config/errorHandler')
-// const { logger } = require('./config/logEvents');
+const { logger } = require('./config/logEvents');
+
+
 const app = express()
 
 
 
-/** allow cors */
-app.use(cors())
 
 /**use helmet to secure gttp headers */
 app.use(helmet())
+
+/**logger */
+app.use(logger())
 
 
 /** Log the request */
