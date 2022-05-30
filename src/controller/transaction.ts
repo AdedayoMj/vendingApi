@@ -1,6 +1,6 @@
 
 import { NextFunction, Request, Response } from 'express';
-import logging from '../config/logging';
+import logging from '../settings/logging';
 
 import Product from '../models/product';
 import Transaction from '../models/transaction';

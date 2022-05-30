@@ -1,11 +1,11 @@
 import jwt from 'jsonwebtoken';
-import config from '../config/config';
-import logging from '../config/logging';
+import config from '../settings/variables';
+import logging from '../settings/logging';
 import { Request, Response, NextFunction } from 'express';
 
 const NAMESPACE = 'Auth';
 
-const checkJWT = (req: Request, res: Response, next: NextFunction) => {
+const verifyToken = (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Validating token');
 
     let token = req.headers.authorization?.split(' ')[1];
@@ -31,4 +31,4 @@ const checkJWT = (req: Request, res: Response, next: NextFunction) => {
     }
 };
 
-export default checkJWT;
+export default verifyToken;

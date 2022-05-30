@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import logging from '../config/logging'
+import logging from '../settings/logging'
 import User from '../models/users'
 import mongoose from 'mongoose'
 import bcryptjs from 'bcryptjs';

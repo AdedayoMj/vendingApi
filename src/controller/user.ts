@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import logging from '../config/logging'
+import logging from '../settings/logging'
 import User from '../models/users'
 
 import Joi from 'joi';
@@ -13,15 +13,18 @@ const findUser = async (req: Request, res: Response, next: NextFunction) => {
   const name = req.body.name
   logging.info(`Incoming read for user data with username ${name}`)
   try {
+    
     let userData = await User.findOne({ name }).exec()
     if (!userData) return res.status(400).send({ message: 'User not found...' });
-    return res.status(200).json({ userData });
+    return res.status(200).json({ user:userData });
   } catch (error) {
     logging.error(error)
     return res.status(500).json(error)
   }
 
 }
+
+
 
 /** update user's infomation */
 const update = async (req: Request, res: Response, next: NextFunction) => {
@@ -60,7 +63,7 @@ const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
   try {
     let users = await User.find().exec()
     if (!users) return res.status(400).send({ message: 'User list does not exist...' });
-    return res.status(200).json({ users });
+    return res.status(200).json({ user:users });
   } catch (error) {
     logging.error(error)
     return res.status(500).json(error)

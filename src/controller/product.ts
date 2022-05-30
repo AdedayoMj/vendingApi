@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import logging from '../config/logging';
+import logging from '../settings/logging';
 import Product from '../models/product';
 import mongoose from 'mongoose';
 import multer from 'multer'
@@ -75,7 +75,7 @@ const findProduct = async(req: Request, res: Response, next: NextFunction) => {
     try {
       let productData = await Product.findOne({ _id }).exec()
       if (!productData) return res.status(400).send({ message: 'Product not found...' });
-      return res.status(200).json({ productData });
+      return res.status(200).json({ product:productData });
     } catch (error) {
       logging.error(error)
       return res.status(500).json(error)
@@ -89,7 +89,7 @@ const getAllProduct = async(req: Request, res: Response, next: NextFunction) => 
         let products = await Product.find().exec()
         if (!products) return res.status(400).send({ message: 'Product list does not exist...' });
         return res.status(200).json({ count: products.length,
-            products: products });
+            product: products });
       } catch (error) {
         logging.error(error)
         return res.status(500).json(error)

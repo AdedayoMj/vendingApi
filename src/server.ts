@@ -1,9 +1,11 @@
 
+require('dotenv').config();
 import http from 'http'
-import logging from './config/logging'
-import config from './config/config'
+import logging from './settings/logging'
+import variableData from './settings/variables'
 import mongoose from 'mongoose'
-import cors from 'cors'
+
+
 
 
 
@@ -12,13 +14,12 @@ const app = require ('./app/app')
 /** Server Handling */
 const httpServer = http.createServer(app)
 
-/** allow cors */
-app.use(cors())
+
 
 /** Connect to Mongo */
 
 mongoose
-    .connect(config.mongo.url, config.mongo.options)
+    .connect(variableData.mongo.url, variableData.mongo.options)
     .then(() => {
         logging.info('DB Connection Successfull!')
     })
@@ -28,6 +29,6 @@ mongoose
 
 
 /** Listen */
-httpServer.listen(config.server.port, () =>
-    logging.info(`Server is running ${config.server.hostname}:${config.server.port}`)
+httpServer.listen(variableData.server.port, () =>
+    logging.info(`Server is running ${variableData.server.hostname}:${variableData.server.port}`)
 )
