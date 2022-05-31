@@ -4,10 +4,9 @@ import logging from '../utils/logging'
 import helmet from 'helmet'
 import cors from 'cors'
 
-import userRoutes from '../routes/user'
-// import productsRoutes from '../routes/product'
-// import transactionsRoutes from '../routes/transaction'
-import authRoutes from '../routes/auth'
+import userRoutes from '../routes/user.route'
+import productsRoutes from '../routes/product.route'
+import authRoutes from '../routes/auth.route'
 import cookieParser from 'cookie-parser'
 import morgan from 'morgan'
 
@@ -22,7 +21,7 @@ const app = express()
 /**use helmet to secure gttp headers */
 app.use(helmet())
 
-
+app.use(logger)
 
 app.use(cookieParser())
 
@@ -40,7 +39,7 @@ app.use((req, res, next) => {
 })
 
 /**logger */
-if(process.env.NODE_ENV ==='development') app.use(morgan('dev'))
+if (process.env.NODE_ENV === 'development') app.use(morgan('dev'))
 
 
 /** Rules of our API */
@@ -48,17 +47,16 @@ app.use(cors(corsOptions))
 
 /** Parse the body of the request */
 app.use(express.urlencoded({ extended: true }))
-app.use(express.json({limit:'10kb'}))
+app.use(express.json())
 
 
 
 /** Routes */
 app.use('/api/auth', authRoutes)
 app.use('/api/users', userRoutes)
-// app.use('/api/transact', transactionsRoutes)
-// app.use('/api/product', productsRoutes)
+app.use('/api/product', productsRoutes)
 
 /** Error handling */
 app.use(errorHandler);
 
-module.exports =app
+module.exports = app

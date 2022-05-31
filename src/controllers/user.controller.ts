@@ -114,6 +114,46 @@ export const modifyUserDeposit = async (
   }
 };
 
+export const updateMeHandler = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    // Check if user POSTed password data
+    if (req.body.password || req.body.passwordConfirm) {
+      return next(
+        new AppError(
+          'This route is not for password update, please use /updatePassword',
+          403
+        )
+      );
+    }
+
+    const filter = filterObj(req.body, 'username', 'role');
+
+    const user = await findAndUpdateUser({ _id: res.locals.user._id }, filter, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!user) {
+      return next(new AppError('User no logger exist', 404));
+    }
+
+    const newUser = omit(user.toJSON(), excludedFields);
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        user: newUser,
+      },
+    });
+  } catch (err: any) {
+    next(err);
+  }
+};
+
 
 export const deleteMeHandler = async (
   req: Request,

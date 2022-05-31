@@ -11,7 +11,7 @@
     "start": "ts-node-dev --respawn --transpile-only src/server.ts",
     "dev": "nodemon -x ts-node src/server.ts",
     "pre-commit": "tsc && lint-staged",
-    "test": "jest --runInBand -c ./jest.unit.js --collectCoverage false",
+    "test": "NODE_PATH=. jest --runInBand -c ./jest.unit.js --collectCoverage false",
     "test:coverage": "jest --runInBand -c ./jest.unit.js --coverage "
   },
   "keywords": [],
@@ -48,6 +48,7 @@
     "@shelf/jest-mongodb": "^2.2.2",
     "@typegoose/typegoose": "^9.8.1",
     "@types/helmet": "^4.0.0",
+    "@types/uuid": "^8.3.4",
     "accesscontrol": "^2.2.1",
     "bcryptjs": "^2.4.3",
     "chalk": "^5.0.1",

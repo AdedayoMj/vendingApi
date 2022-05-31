@@ -5,7 +5,7 @@ import productModel from '../models/product.model';
 import {
     CreateProductInput,
     DeleteProductInput,
-    GetAllProductInput,
+    // GetAllProductInput,
     BuyProductInput,
     GetProductInput,
     UpdateProductInput,
@@ -23,50 +23,14 @@ import logging from '../utils/logging';
 import { findAndUpdateUser } from '../services/user.service';
 
 
-const multerStorage = multer.memoryStorage();
-const multerFilter = (
-    req: Request,
-    file: Express.Multer.File,
-    cb: FileFilterCallback
-) => {
-    if (!file.mimetype.startsWith('image')) {
-        return cb(new Error('Only images are allowed'));
-    }
-    cb(null, true);
-};
 
-const upload = multer({
-    storage: multerStorage, limits: {
-        fileSize: 1024 * 1024 * 2
-    }, fileFilter: multerFilter
-});
-
-export const uploadProductImages = upload.single('productImages')
-
-export const resizeProductImages = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-) => {
-    // @ts-ignore
-    if (!req.file.productImages) return next();
-
-    req.body.productImages = `product-${req.params.productId}-${Date.now()}-cover.jpeg`;
-    // Resize imageCover
-    await sharp(req?.file?.path[0])
-        .resize(2000, 1333)
-        .toFormat('jpeg')
-        .jpeg({ quality: 90 })
-        .toFile(`${__dirname}/../../public/products/${req.body.productImages}`);
-
-    next();
-};
 
 export const createProductHandler = async (
     req: Request<{}, {}, CreateProductInput>,
     res: Response,
     next: NextFunction
 ) => {
+    logging.info(`Attempting  to create product `);
     try {
         const product = await createProduct(req.body);
         res.status(201).json({
@@ -91,6 +55,7 @@ export const getAllProductHandler = async (
     res: Response,
     next: NextFunction
 ) => {
+    logging.info(`Attempting  to get all product `);
     try {
         const apiFeatures = new APIFeatures(productModel.find(), req.query)
             .filter()
@@ -139,6 +104,8 @@ export const updateProductHandler = async (
     res: Response,
     next: NextFunction
 ) => {
+
+    logging.info(`Attempting  to update product `);
     try {
         const product = await updateProduct({ _id: req.params.productId }, req.body, {
             new: true,
@@ -169,12 +136,15 @@ export const buyProductHandler = async (
     logging.info(`Attempting  to puchase product `);
 
     try {
-        let { deposit, username } = res.locals.user
+        let { deposit } = res.locals.user
 
         const product = await getProduct({ _id: req.params.productId });
 
         if (!product) {
             return next(new AppError('No product with that ID exist', 404));
+        }
+        if (product.amountAvailable < req.body.quantity) {
+            return next(new AppError('Quantity requested is more than available product ', 404));
         }
 
         const productTotalPrice = product.cost * req.body.quantity
@@ -187,8 +157,6 @@ export const buyProductHandler = async (
             deposit: calculateChange
         }
         await Promise.all([
-
-
             updateProduct({ _id: req.params.productId }, newProduct, {
                 new: true,
                 runValidators: true,
@@ -198,6 +166,18 @@ export const buyProductHandler = async (
                 runValidators: true
             })
         ])
+
+        const products = {
+            totalprice: productTotalPrice,
+            availableChange: calculateChange,
+            productName: product.productName
+        }
+        res.status(200).json({
+            status: 'success',
+            data: {
+                products,
+            },
+        });
 
     } catch (err: any) {
         next(err);

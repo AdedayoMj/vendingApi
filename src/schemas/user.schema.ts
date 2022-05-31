@@ -1,4 +1,4 @@
-import { object, string,number, TypeOf } from 'zod';
+import { object, string, number, TypeOf } from 'zod';
 
 export const createUserSchema = object({
   body: object({
@@ -13,30 +13,29 @@ export const createUserSchema = object({
   }),
 });
 
-export const updateMeSchema =object({
-  body:object({
+export const updateMeSchema = object({
+  body: object({
     username: string({}),
-    role:string({}),
-    deposit:number({}),
-    password:string(),
-    passwordConfirm:string()
+    role: string({}),
+    deposit: number({}),
+    password: string(),
+    passwordConfirm: string()
   }).partial(),
 })
 
 export const loginUserSchema = object({
-    body: object({
-      username: string({ required_error: 'Username is required' }).min(
-        3,
-        'Invalid email or password'
-      ),
-      password: string({ required_error: 'Password is required' }).min(
-        8,
-        'Invalid email or password'
-      ),
-    }),
-  });
-  
-  export type CreateUserInput = TypeOf<typeof createUserSchema>['body'];
-  export type UpdateMeInput = TypeOf<typeof updateMeSchema>['body'];
-  export type LoginUserInput = TypeOf<typeof loginUserSchema>['body'];
-  
+  body: object({
+    username: string({ required_error: 'Username is required' }).min(
+      3,
+      'Invalid email or password'
+    ),
+    password: string({ required_error: 'Password is required' }).min(
+      8,
+      'Invalid email or password'
+    ),
+  }),
+});
+
+export type CreateUserInput = TypeOf<typeof createUserSchema>['body'];
+export type UpdateMeInput = TypeOf<typeof updateMeSchema>['body'];
+export type LoginUserInput = TypeOf<typeof loginUserSchema>['body'];

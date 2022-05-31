@@ -3,6 +3,7 @@ import { CookieOptions, NextFunction, Request, Response } from 'express';
 import { CreateUserInput, LoginUserInput } from '../schemas/user.schema';
 import { createUser, findUser, signToken } from '../services/user.service';
 import AppError from '../utils/appError';
+import logging from '../utils/logging';
 
 // Exclude this fields from the response
 export const excludedFields = ['password'];
@@ -32,6 +33,9 @@ export const registerHandler = async (
       password: req.body.password,
     });
 
+    console.log(user);
+    
+
     res.status(201).json({
       status: 'success',
       data: {
@@ -39,7 +43,10 @@ export const registerHandler = async (
       },
     });
   } catch (err: any) {
+    logging.error(err);
+    
     if (err.code === 11000) {
+
       return res.status(409).json({
         status: 'fail',
         message: 'username already exist',

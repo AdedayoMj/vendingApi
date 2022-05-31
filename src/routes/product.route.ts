@@ -5,9 +5,7 @@ import {
     deleteProductHandler,
     getAllProductHandler,
     getProductHandler,
-    resizeProductImages,
     updateProductHandler,
-    uploadProductImages,
     buyProductHandler
 } from '../controllers/product.controller';
 import { deserializeUser } from '../middleware/deserializeUser';
@@ -29,14 +27,7 @@ const router = express.Router();
 
 router
     .route('/')
-    .post(
-        deserializeUser,
-        restrictTo('seller'),
-        validate(createProductSchema),
-        uploadProductImages,
-        resizeProductImages,
-        createProductHandler
-    )
+    .post(deserializeUser, restrictTo('seller'), validate(createProductSchema), createProductHandler)
     .get(validate(getAllProductSchema), getAllProductHandler);
 
 router.use(deserializeUser, requireUser);
@@ -44,14 +35,9 @@ router.use(deserializeUser, requireUser);
 router
     .route('/:productId')
     .get(validate(getProductSchema), getProductHandler)
-    .patch(
-        restrictTo('seller'),
-        validate(updateProductSchema),
-        uploadProductImages,
-        resizeProductImages,
-        updateProductHandler
-    )
-    .post(deserializeUser,restrictTo('buyer'),validate(buyProductSchema),buyProductHandler )
+    .patch(restrictTo('seller'), validate(updateProductSchema), updateProductHandler)
     .delete(restrictTo('seller'), validate(deleteProductSchema), deleteProductHandler);
+router.route('/buy/:productId')
+    .post(deserializeUser, restrictTo('buyer'), validate(buyProductSchema), buyProductHandler)
 
 export default router;

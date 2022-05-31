@@ -31,7 +31,7 @@ export const deserializeUser = async (
 
 
     if (!decoded) {
-      return next(new AppError(`Invalid token or user doesn't exist`, 401));
+      return next(new AppError(`Invalid token, user doesn't exist or token expired`, 401));
     }
 
     

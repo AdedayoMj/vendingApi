@@ -9,6 +9,8 @@ import { DocumentType, queryMethod } from '@typegoose/typegoose';
 
 // CreateUser service
 export const createUser = async (input: Partial<User>) => {
+  console.log(input);
+  
   const user = await userModel.create(input);
   return omit(user.toJSON(), excludedFields);
 };
