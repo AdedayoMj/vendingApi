@@ -8,6 +8,7 @@ import {
     resizeProductImages,
     updateProductHandler,
     uploadProductImages,
+    buyProductHandler
 } from '../controllers/product.controller';
 import { deserializeUser } from '../middleware/deserializeUser';
 import { requireUser } from '../middleware/requireUser';
@@ -18,6 +19,7 @@ import {
     getAllProductSchema,
     getProductSchema,
     updateProductSchema,
+    buyProductSchema
 } from '../schemas/product.schema';
 
 
@@ -49,6 +51,7 @@ router
         resizeProductImages,
         updateProductHandler
     )
+    .post(deserializeUser,restrictTo('buyer'),validate(buyProductSchema),buyProductHandler )
     .delete(restrictTo('seller'), validate(deleteProductSchema), deleteProductHandler);
 
 export default router;

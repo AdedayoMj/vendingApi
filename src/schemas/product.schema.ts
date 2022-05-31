@@ -31,6 +31,13 @@ export const getAllProductSchema = object({
   export const getProductSchema = object({
     ...params,
   });
+  export const buyProductSchema = object({
+    ...params,
+    body: object({
+      quantity:number().positive(),
+    })
+  });
+  
   
   export const updateProductSchema = object({
     ...params,
@@ -38,7 +45,7 @@ export const getAllProductSchema = object({
         productName: string().min(6, 'Name must be more than 6 characters'),
         amountAvailable: number().positive(),
         cost: number().positive(),
-        productImages: string(),
+        productImages: string()
     }).partial(),
   });
   
@@ -53,4 +60,5 @@ export type CreateProductInput = TypeOf<typeof createProductSchema>['body'];
 export type GetAllProductInput = TypeOf<typeof getAllProductSchema>['query'];
 export type GetProductInput = TypeOf<typeof getProductSchema>['params'];
 export type UpdateProductInput = TypeOf<typeof updateProductSchema>;
+export type BuyProductInput = TypeOf<typeof buyProductSchema>;
 export type DeleteProductInput = TypeOf<typeof deleteProductSchema>['params'];
