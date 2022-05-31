@@ -1,18 +1,54 @@
-
-
 import express from 'express';
-import controller from '../controllers/product';
-import verifyToken from '../middleware/verifyToken';
-import verifyRole from '../middleware/verifyRole';
-import ROLES_LIST from '../_helpers/role'
+import { restrictTo } from '../middleware/restrictTo';
+import {
+    createProductHandler,
+    deleteProductHandler,
+    getAllProductHandler,
+    getProductHandler,
+    resizeProductImages,
+    updateProductHandler,
+    uploadProductImages,
+} from '../controllers/product.controller';
+import { deserializeUser } from '../middleware/deserializeUser';
+import { requireUser } from '../middleware/requireUser';
+import { validate } from '../middleware/validate';
+import {
+    createProductSchema,
+    deleteProductSchema,
+    getAllProductSchema,
+    getProductSchema,
+    updateProductSchema,
+} from '../schemas/product.schema';
 
 
 const router = express.Router();
 
-router.get('/getAllProducts', controller.getAllProduct);
-router.get('/findProduct/:productID', controller.findProduct);
-router.post('/addProduct', verifyToken, controller.upload.single('productImage'), verifyRole(ROLES_LIST.seller) , controller.addProduct);
-router.put('/updateProduct/:productID', verifyToken, verifyRole(ROLES_LIST.seller), controller.updateProduct);
-router.delete('/:productID', verifyToken, verifyRole(ROLES_LIST.seller), controller.deleteProduct);
 
-export = router;
+
+router
+    .route('/')
+    .post(
+        deserializeUser,
+        restrictTo('seller'),
+        validate(createProductSchema),
+        uploadProductImages,
+        resizeProductImages,
+        createProductHandler
+    )
+    .get(validate(getAllProductSchema), getAllProductHandler);
+
+router.use(deserializeUser, requireUser);
+
+router
+    .route('/:productId')
+    .get(validate(getProductSchema), getProductHandler)
+    .patch(
+        restrictTo('seller'),
+        validate(updateProductSchema),
+        uploadProductImages,
+        resizeProductImages,
+        updateProductHandler
+    )
+    .delete(restrictTo('seller'), validate(deleteProductSchema), deleteProductHandler);
+
+export default router;

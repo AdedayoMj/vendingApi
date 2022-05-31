@@ -4,3 +4,56 @@
 20220530	11:24:15	f939e53a-c5f5-42d6-a640-cf3cdd85adb1	Error: Not allowed by CORS
 20220530	11:36:36	badf9071-914d-4f15-bf50-ed967e1d9528	Error: Not allowed by CORS
 20220530	11:37:59	ef51d797-2562-4565-99bd-5ae64e2163b7	Error: Not allowed by CORS
+20220530	19:44:56	329c4087-be59-4c84-9a77-c82feca055ed	SyntaxError: Unexpected token } in JSON at position 87
+20220530	19:59:28	99f6519b-0f8d-4c28-acf6-ad6a590e9efb	Error: error:0909006C:PEM routines:get_name:no start line
+20220530	20:04:14	8a407d87-8e1d-488a-a439-6e422c6748f4	Error: You are not logged in
+20220530	20:04:58	504fba4c-88a9-4fe4-9081-63458116a9ac	Error: error:0909006C:PEM routines:get_name:no start line
+20220530	20:13:04	a190bb64-68b1-481c-8217-32b5a14b4806	Error: You are not logged in
+20220530	20:15:25	0287a48e-73ca-49ff-a63c-e65e3b98184d	Error: You are not logged in
+20220530	20:16:33	233c2a48-8965-4872-abc4-f52a5488eecb	Error: You are not logged in
+20220530	20:16:49	b69d1ce5-6b37-4384-b7a6-c5205e1c452f	Error: You are not logged in
+20220530	20:22:27	d062444c-91fd-4dac-abc0-a84e15083300	Error: You are not logged in
+20220530	20:24:10	245e93c8-026d-4a6d-9c74-166a5c68a136	Error: You are not logged in
+20220530	20:24:15	ea33c622-d2ad-4fc5-a1a6-b47c61d94404	Error: You are not logged in
+20220530	20:26:51	cbfd8d1c-0dbc-45ed-adad-e5242d6f72e4	Error: You are not logged in
+20220530	20:27:48	2b9e1a36-728b-4e19-9714-0ae65349d47f	Error: You are not logged in
+20220530	20:27:58	f86df127-f335-44d9-a16a-8972ead7065e	Error: You are not logged in
+20220530	20:29:50	c3a46eb2-4e02-4035-850a-af5780dd52c1	Error: You are not logged in
+20220530	20:31:18	4a64665a-5e8c-401b-9b63-4877b34683f9	Error: You are not logged in
+20220530	20:32:02	e6821bb1-81d3-413e-8acc-64b2e3f62d17	Error: You are not logged in
+20220530	20:32:58	5e01b6e9-b423-43c7-943e-6eb521960301	Error: User session has expired
+20220530	20:33:58	6d6fe8eb-86fe-47e3-a315-5b7335d7ada0	Error: User session has expired
+20220530	20:35:01	22be2b31-bd24-44d9-8b5d-1316085718e5	Error: User session has expired
+20220530	20:44:54	9ca04478-eb8c-4446-a5b5-38b8a9b1cc6e	Error: User session has expired
+20220530	20:49:31	bfd5ca70-c601-48b0-9848-0e6bda0911b4	Error: User session has expired
+20220530	20:54:25	b31a011c-f2a3-4a5d-9cf0-6e54f747dd9f	Error: User session has expired
+20220530	21:05:50	901ce243-4366-42ce-a367-8d5de17e816a	Error: User session has expired
+20220530	21:11:26	55ec3a13-4ace-4c45-ada7-c3f08534e6c1	Error: User session has expired
+20220530	21:12:09	23683d07-17d9-4a34-8a1b-c785635c07a2	Error: User session has expired
+20220530	21:33:11	6dc8e2f8-f16b-4612-b0ff-8561bb620dfa	Error: User session has expired
+20220530	21:33:49	ed90ba91-06e0-4d6b-86de-efdf906f77f2	Error: User session has expired
+20220530	21:35:41	ed1f6137-5a3e-423c-8d34-8ea9980cf662	TypeError: Invalid argument type
+20220530	21:35:59	32ade682-0418-49e5-8a20-4fb9c869cff5	TypeError: Invalid argument type
+20220530	21:36:10	2f711a83-2e92-49ac-8d47-8afce2bbf5a1	TypeError: Invalid argument type
+20220530	21:38:09	509cd575-ad37-42e5-a3d7-89cd54116d05	TypeError: Invalid argument type
+20220530	21:38:54	bedb1e0b-5a1a-400d-b302-fc6c6ea07f38	TypeError: Invalid argument type
+20220530	21:39:22	96f07ef5-87ab-4ef8-acaf-e83fd4afbd13	TypeError: Invalid argument type
+20220530	21:43:40	308bd505-5056-4bce-9a1e-259c3a0db0ad	Error: User session has expired
+20220530	21:47:42	95b8899d-bf85-49df-9088-837fe8ea3fc2	Error: User session has expired
+20220530	22:04:13	a09cf0d5-61a4-4305-9479-eb86c576ddf2	SyntaxError: Unexpected token } in JSON at position 25
+20220530	22:04:17	a4ecbdf5-af4a-4a62-afda-a061246d4fa5	Error: Invalid token or user doesn't exist
+20220530	22:05:16	067802a4-79bb-4777-bd02-51fad916090b	Error: Invalid token or user doesn't exist
+20220530	22:07:54	a8dcd915-4169-4f6a-b27d-6e5f641aabcd	MongoServerError: FieldPath field names may not start with '$'. Consider using $getField or $setField.
+20220530	22:09:30	cb21b886-ce4a-4d39-a3d2-ebd3f70ba5dd	MongoServerError: FieldPath field names may not start with '$'. Consider using $getField or $setField.
+20220530	22:10:30	730dbff6-1eee-4fb3-9a88-a9978d1e027a	MongoServerError: Cannot increment with non-numeric argument: {deposit: "20"}
+20220530	22:13:33	984af5c1-30b4-492b-b2c5-452f55b4c02d	Error: You are not allowed to perform this action
+20220531	01:11:08	a44639ce-a117-40be-814d-3eea39b16322	Error: Invalid token or user doesn't exist
+20220531	01:14:10	3abd4daa-67b0-44db-b3f9-dc2ab88de6f4	Error: You are not allowed to perform this action
+20220531	01:14:38	406164d1-3c27-4d84-9e9d-21dbc56f900e	Error: Please supply the corrct currency
+20220531	01:14:48	30fcb00c-5ea1-4be9-8b94-9d8b0923a731	Error: Please supply the corrct currency
+20220531	01:18:55	fb594691-d52c-4ac5-8600-faee60691f13	Error: Please supply the corrct currency
+20220531	01:19:01	fc44ebff-1876-43fb-97be-d72025ef54be	Error: Please supply the corrct currency
+20220531	01:29:41	6dd70877-b60f-419c-adb7-44a34f568f95	Error: Invalid token or user doesn't exist
+20220531	01:29:52	ad21e6c5-876e-46ac-a234-dee128622b0b	Error: Invalid token or user doesn't exist
+20220531	01:33:33	ab94354a-4354-4844-8095-c45c79464934	Error: You are not logged in
+20220531	01:43:56	42327259-9d44-4b0b-a2eb-9ba05053756d	Error: Please supply the corrct currency

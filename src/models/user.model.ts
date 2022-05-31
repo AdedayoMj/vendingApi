@@ -31,11 +31,11 @@ import {
     @prop({ required: true, minlength: 8, maxLength: 32, select: false })
     password: string;
   
-    @prop({ default: 'buyer' })
+    @prop({lowercase: true , default: 'buyer' })
     role: string;
 
     @prop({ default: 0 })
-    deposit: string;
+    deposit: number;
   
     // Instance method to check if passwords match
     async comparePasswords(hashedPassword: string, candidatePassword: string) {

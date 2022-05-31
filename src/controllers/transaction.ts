@@ -1,11 +1,11 @@
 
 import { NextFunction, Request, Response } from 'express';
-import logging from '../settings/logging';
+import logging from '../utils/logging';
 
 import Product from '../models/product';
 import Transaction from '../models/transaction';
 import User from '../models/users'
-import { checkArray } from '../_helpers/checkArray';
+import { checkArray } from '../middleware/checkArray';
 import mongoose from 'mongoose';
 
 const buyProduct = async (req: Request, res: Response, next: NextFunction) => {

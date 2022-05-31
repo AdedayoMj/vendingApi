@@ -67,10 +67,10 @@ export const loginHandler = async (
     }
 
     // Create an Access Token
-    const { accessToken} = await signToken(user);
+    const {access_token} = await signToken(user);
 
     // Send Access Token in Cookie
-    res.cookie('accessToken', accessToken, accessTokenCookieOptions);
+    res.cookie('accessToken', access_token, accessTokenCookieOptions);
     res.cookie('logged_in', true, {
       ...accessTokenCookieOptions,
       httpOnly: false,
@@ -79,7 +79,7 @@ export const loginHandler = async (
     // Send Access Token
     res.status(200).json({
       status: 'success',
-      accessToken,
+      access_token,
     });
   } catch (err: any) {
     next(err);

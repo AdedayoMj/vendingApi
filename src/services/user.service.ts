@@ -1,11 +1,11 @@
 import { omit, get } from 'lodash';
-import { FilterQuery, QueryOptions } from 'mongoose';
+import { FilterQuery, QueryOptions, UpdateQuery } from 'mongoose';
 import config from 'config';
 import userModel, { User } from '../models/user.model';
 import { excludedFields } from '../controllers/auth.controller';
-import { signJwt } from '../utils/jwt';
+import { signJwt, verifyJwt } from '../utils/jwt';
 import redisClient from '../utils/connectRadis';
-import { DocumentType } from '@typegoose/typegoose';
+import { DocumentType, queryMethod } from '@typegoose/typegoose';
 
 // CreateUser service
 export const createUser = async (input: Partial<User>) => {
@@ -19,10 +19,24 @@ export const findUserById = async (id: string) => {
   return omit(user, excludedFields);
 };
 
+// Deposite money for uer 
+export const findAndUpdateUser = async (query: FilterQuery<User>, update: UpdateQuery<number>, options: QueryOptions) => {
+
+  return await userModel.findOneAndUpdate(query, update, options)
+
+};
+
 // Find All users
 export const findAllUsers = async () => {
   return await userModel.find();
 };
+
+
+// Find All users
+export const deleteUser = async (query: FilterQuery<User>) => {
+  return await userModel.findOneAndDelete(queryMethod);
+};
+
 
 // Find one user by any fields
 export const findUser = async (
@@ -35,17 +49,21 @@ export const findUser = async (
 // Sign Token
 export const signToken = async (user: DocumentType<User>) => {
   // Sign the access token
-  const access_token = signJwt(
+  const access_token = await signJwt(
     { sub: user._id },
     {
       expiresIn: `${config.get<number>('accessTokenExpiresIn')}m`,
     }
   );
 
+
+
   // Create a Session
-  redisClient.set(user._id, JSON.stringify(user), {
+  redisClient.set((user._id).toString(), JSON.stringify(user), {
     EX: 60 * 60,
   });
+
+
 
   // Return access token
   return { access_token };
