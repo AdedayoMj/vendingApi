@@ -29,14 +29,22 @@ export const createProductHandler = async (
     next: NextFunction
 ) => {
     logging.info(`Attempting  to create product `);
-    
+
     try {
 
-        const product = await createProduct(req.body);
+        await createProduct(req.body);
+
+        const apiFeatures = new APIFeatures(productModel.find(), req.query)
+            .filter()
+            .sort()
+            .limitField()
+
+        const products = await apiFeatures.query;
+
         res.status(201).json({
             status: 'success',
             data: {
-                product,
+                products,
             },
         });
     } catch (err: any) {
@@ -139,7 +147,7 @@ export const buyProductHandler = async (
         let { deposit } = res.locals.user
 
         const product = await getProduct({ _id: req.params.productId });
-        const {quantity} = req.body
+        const { quantity } = req.body
         let convertQuatity = Number(quantity)
 
         if (!product) {
@@ -150,7 +158,7 @@ export const buyProductHandler = async (
         }
         const productTotalPrice = product.cost * convertQuatity
 
-        if (deposit < productTotalPrice ) return next(new AppError('Insufficient funds!', 51));
+        if (deposit < productTotalPrice) return next(new AppError('Insufficient funds!', 51));
         const calculateChange = deposit - productTotalPrice
 
         let newProduct = {
@@ -226,10 +234,16 @@ export const deleteProductHandler = async (
         if (!product) {
             return next(new AppError('No document with that ID exist', 404));
         }
+        const apiFeatures = new APIFeatures(productModel.find(), req.query)
+            .filter()
+            .sort()
+            .limitField()
+
+        const products = await apiFeatures.query;
 
         res.status(204).json({
             status: 'success',
-            data: null,
+            data: products,
         });
     } catch (err: any) {
         next(err);

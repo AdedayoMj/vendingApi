@@ -32,7 +32,7 @@ router.patch('/reset', restrictTo('buyer'), resetDeposit)
 router.patch('/updateUser', validate(updateMeSchema), updateMeHandler);
 
 // Get my info route
-router.get('/me', getMeHandler);
+router.get('/getUser', getMeHandler);
 
 // delete Users route
 router.delete('/deleteUser', deleteMeHandler);

@@ -3,7 +3,7 @@ import { omit } from 'lodash';
 import { checkArray } from '../middleware/checkArray';
 import { User } from '../models/user.model';
 import { UpdateMeInput } from '../schemas/user.schema';
-import { findAllUsers, findAndUpdateUser } from '../services/user.service';
+import { findAllUsers, findAndUpdateUser, findUserById } from '../services/user.service';
 import AppError from '../utils/appError';
 import logging from '../utils/logging'
 import { excludedFields } from './auth.controller';
@@ -121,16 +121,18 @@ export const resetDeposit = async (
   logging.info(`Reset route called`)
 
   try {
-  
-    let filter = filterObj(req.body, 'deposit')
 
+    const { deposit } = await findUserById(res.locals.user._id)
+
+    let filter = filterObj(req.body, 'deposit')
     const user = await findAndUpdateUser({ _id: res.locals.user._id }, filter, {
       new: true,
       runValidators: true
     })
 
+
     if (!user) {
-      return next(new AppError('User no longer exist, 404'))
+      return next(new AppError('User no longer exist', 404))
     }
 
     const newUser = omit(user.toJSON(), excludedFields)

@@ -85,3 +85,76 @@
 20220601	11:29:00	Error: You are not allowed to perform this action
 20220601	11:41:39	Error: You are not logged in
 20220601	11:48:04	Error: Quantity requested is more than available product 
+20220601	12:34:42	Error: You are not allowed to perform this action
+20220601	12:35:02	TypeError: Cannot read property 'toString' of undefined
+20220601	12:36:43	TypeError: Cannot read property 'toString' of undefined
+20220601	12:42:54	TypeError: Cannot read property 'toString' of undefined
+20220601	12:42:56	Error: You are not allowed to perform this action
+20220601	12:45:10	TypeError: Cannot read property 'toString' of undefined
+20220601	12:45:25	Error: You are not allowed to perform this action
+20220601	12:46:30	Error: You are not allowed to perform this action
+20220601	12:47:52	TypeError: Cannot read property 'toString' of undefined
+20220601	12:50:13	TypeError: Cannot read property 'toString' of undefined
+20220601	12:51:07	Error: Invalid username or password
+20220601	12:51:29	Error: Invalid username or password
+20220601	12:59:25	Error: You are not logged in
+20220601	14:45:02	Error: Insufficient funds!
+20220601	14:45:08	Error: Insufficient funds!
+20220601	14:45:37	Error: Quantity requested is more than available product 
+20220601	14:45:46	Error: Insufficient funds!
+20220601	14:51:47	Error: You are not logged in
+20220601	15:09:10	Error: Not allowed by CORS
+20220601	15:10:29	Error: Not allowed by CORS
+20220601	16:48:31	Error: You are not logged in
+20220601	16:48:57	Error: You are not logged in
+20220601	16:49:26	Error: You are not logged in
+20220601	16:49:51	Error: You are not logged in
+20220601	16:50:00	Error: You are not logged in
+20220601	16:50:10	Error: You are not logged in
+20220601	16:50:10	Error: You are not logged in
+20220601	17:15:00	Error: Insufficient funds!
+20220601	17:21:50	Error: You are not logged in
+20220601	17:21:50	Error: You are not logged in
+20220601	17:23:20	Error: You are not logged in
+20220601	17:23:20	Error: You are not logged in
+20220601	17:31:23	Error: You are not logged in
+20220601	17:31:23	Error: You are not logged in
+20220601	17:33:04	Error: You are not logged in
+20220601	17:33:04	Error: You are not logged in
+20220601	17:56:18	Error: You are not logged in
+20220601	17:56:18	Error: You are not logged in
+20220601	18:01:24	Error: You are not logged in
+20220601	18:01:24	Error: You are not logged in
+20220601	18:03:52	Error: You are not logged in
+20220601	18:03:52	Error: You are not logged in
+20220601	18:04:05	Error: You are not logged in
+20220601	18:04:05	Error: You are not logged in
+20220601	18:07:15	Error: You are not logged in
+20220601	18:07:15	Error: You are not logged in
+20220601	18:08:14	Error: You are not logged in
+20220601	18:08:14	Error: You are not logged in
+20220601	18:09:13	Error: You are not logged in
+20220601	18:09:13	Error: You are not logged in
+20220601	18:09:34	Error: You are not logged in
+20220601	18:09:34	Error: You are not logged in
+20220601	18:10:34	Error: You are not allowed to perform this action
+20220601	19:03:15	Error: You are not logged in
+20220601	19:03:15	Error: You are not logged in
+20220601	19:05:38	Error: You are not logged in
+20220601	19:05:38	Error: You are not logged in
+20220601	19:12:43	Error: You are not logged in
+20220601	19:12:43	Error: You are not logged in
+20220601	19:15:51	Error: You are not logged in
+20220601	19:15:51	Error: You are not logged in
+20220601	19:16:08	Error: You are not logged in
+20220601	19:16:12	Error: You are not logged in
+20220601	19:16:12	Error: You are not logged in
+20220601	19:24:24	Error: You are not allowed to perform this action
+20220601	19:46:50	Error: You are not logged in
+20220601	19:46:50	Error: You are not logged in
+20220601	19:52:22	Error: You are not logged in
+20220601	19:52:22	Error: You are not logged in
+20220601	19:56:03	Error: You are not allowed to perform this action
+20220601	20:03:44	Error: You are not allowed to perform this action
+20220601	20:03:45	Error: You are not allowed to perform this action
+20220601	20:03:45	Error: You are not allowed to perform this action
