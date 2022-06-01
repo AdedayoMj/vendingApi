@@ -3,6 +3,7 @@ import { CookieOptions, NextFunction, Request, Response } from 'express';
 import { CreateUserInput, LoginUserInput } from '../schemas/user.schema';
 import { createUser, findUser, signToken } from '../services/user.service';
 import AppError from '../utils/appError';
+import redisClient from '../utils/connectRadis';
 import logging from '../utils/logging';
 
 // Exclude this fields from the response
@@ -77,7 +78,7 @@ export const loginHandler = async (
     const {access_token} = await signToken(user);
 
     // Send Access Token in Cookie
-    res.cookie('accessToken', access_token, accessTokenCookieOptions);
+    res.cookie('access_token', access_token, accessTokenCookieOptions);
     res.cookie('logged_in', true, {
       ...accessTokenCookieOptions,
       httpOnly: false,
@@ -89,6 +90,32 @@ export const loginHandler = async (
       access_token,
     });
   } catch (err: any) {
+    next(err);
+  }
+};
+
+
+
+// Refresh tokens
+const logout = (res: Response) => {
+  res.cookie('access_token', '', { maxAge: 1 });
+  res.cookie('logged_in', '', { maxAge: 1 });
+};
+
+export const logoutHandler = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+
+  try {
+    const user = res.locals.user;
+    await redisClient.del((user._id).toString());
+    logout(res);
+    
+    res.status(200).json({ status: 'success' });
+  } catch (err: any) {
+    console.log(err)
     next(err);
   }
 };

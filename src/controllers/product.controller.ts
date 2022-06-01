@@ -18,10 +18,8 @@ import {
 } from '../services/product.service';
 import AppError from '../utils/appError';
 import APIFeatures from '../utils/apiFeatures';
-import { promise } from 'zod';
 import logging from '../utils/logging';
 import { findAndUpdateUser } from '../services/user.service';
-
 
 
 
@@ -31,7 +29,9 @@ export const createProductHandler = async (
     next: NextFunction
 ) => {
     logging.info(`Attempting  to create product `);
+    
     try {
+
         const product = await createProduct(req.body);
         res.status(201).json({
             status: 'success',
@@ -139,19 +139,22 @@ export const buyProductHandler = async (
         let { deposit } = res.locals.user
 
         const product = await getProduct({ _id: req.params.productId });
+        const {quantity} = req.body
+        let convertQuatity = Number(quantity)
 
         if (!product) {
             return next(new AppError('No product with that ID exist', 404));
         }
-        if (product.amountAvailable < req.body.quantity) {
+        if (product.amountAvailable < convertQuatity) {
             return next(new AppError('Quantity requested is more than available product ', 404));
         }
+        const productTotalPrice = product.cost * convertQuatity
 
-        const productTotalPrice = product.cost * req.body.quantity
+        if (deposit < productTotalPrice ) return next(new AppError('Insufficient funds!', 51));
         const calculateChange = deposit - productTotalPrice
 
         let newProduct = {
-            amountAvailable: (product.amountAvailable - req.body.quantity)
+            amountAvailable: (product.amountAvailable - convertQuatity)
         }
         let newdDeposit = {
             deposit: calculateChange

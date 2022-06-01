@@ -113,7 +113,41 @@ export const modifyUserDeposit = async (
     next(err);
   }
 };
+export const resetDeposit = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  logging.info(`Reset route called`)
 
+  try {
+  
+    let filter = filterObj(req.body, 'deposit')
+
+    const user = await findAndUpdateUser({ _id: res.locals.user._id }, filter, {
+      new: true,
+      runValidators: true
+    })
+
+    if (!user) {
+      return next(new AppError('User no longer exist, 404'))
+    }
+
+    const newUser = omit(user.toJSON(), excludedFields)
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        user: newUser
+      }
+    });
+
+
+  } catch (err: any) {
+    logging.error(err)
+    next(err);
+  }
+};
 export const updateMeHandler = async (
   req: Request,
   res: Response,

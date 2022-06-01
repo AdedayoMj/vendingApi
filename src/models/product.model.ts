@@ -24,17 +24,14 @@ export class Product {
   @prop({ unique: true, required: true })
   productName: string;
 
-  @prop({ required: true })
+  @prop()
   amountAvailable: number;
 
-  @prop({ required: true })
+  @prop()
   cost: number;
 
   @prop()
   sellerId: string;
-
-  @prop()
-  productImages?: string;
 
 }
 

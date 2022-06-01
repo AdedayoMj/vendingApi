@@ -1,0 +1,87 @@
+20220531	13:18:18	Error: You are not logged in
+20220531	13:20:50	Error: You are not logged in
+20220531	13:22:23	Error: You are not logged in
+20220531	13:25:02	Error: You are not logged in
+20220531	13:26:54	Error: You are not logged in
+20220531	13:26:56	Error: You are not logged in
+20220531	13:33:13	Error: You are not logged in
+20220531	13:41:04	Error: You are not logged in
+20220531	13:43:01	Error: You are not logged in
+20220531	13:44:45	Error: You are not logged in
+20220531	13:45:04	Error: You are not logged in
+20220531	13:48:54	Error: You are not logged in
+20220531	13:55:37	Error: You are not logged in
+20220531	13:56:29	Error: You are not logged in
+20220531	13:58:06	Error: You are not logged in
+20220531	13:59:47	Error: Invalid token, user doesn't exist or token expired
+20220531	14:00:29	Error: Invalid token, user doesn't exist or token expired
+20220531	14:01:29	Error: Invalid token, user doesn't exist or token expired
+20220531	14:02:36	Error: Invalid token, user doesn't exist or token expired
+20220531	14:03:33	Error: Invalid token, user doesn't exist or token expired
+20220531	14:06:37	Error: You are not logged in
+20220531	14:07:17	Error: You are not logged in
+20220531	14:08:19	TypeError: Invalid argument type
+20220531	14:08:59	TypeError: Invalid argument type
+20220531	14:10:49	TypeError: Invalid argument type
+20220531	14:11:26	TypeError: Invalid argument type
+20220531	14:13:10	TypeError: Invalid argument type
+20220531	14:13:24	TypeError: Invalid argument type
+20220531	14:13:39	TypeError: Invalid argument type
+20220531	14:14:47	TypeError: Invalid argument type
+20220531	14:15:23	TypeError: Invalid argument type
+20220531	14:18:38	TypeError: Invalid argument type
+20220531	14:20:37	TypeError: Invalid argument type
+20220531	14:22:10	TypeError: Invalid argument type
+20220531	14:23:16	TypeError: Invalid argument type
+20220531	14:23:31	TypeError: Invalid argument type
+20220531	14:25:18	TypeError: Invalid argument type
+20220531	14:25:59	TypeError: Invalid argument type
+20220531	19:53:43	Error: Invalid username or password
+20220531	19:54:12	Error: Invalid username or password
+20220531	19:55:52	Error: Invalid username or password
+20220531	19:57:31	Error: Invalid username or password
+20220531	19:57:43	Error: Invalid username or password
+20220531	20:01:04	Error: Invalid username or password
+20220531	20:03:15	Error: Invalid username or password
+20220531	20:03:41	Error: Invalid username or password
+20220531	20:04:03	Error: Invalid username or password
+20220531	20:29:12	Error: Invalid username or password
+20220531	20:29:21	Error: Invalid username or password
+20220531	21:32:59	Error: You are not logged in
+20220531	22:10:21	Error: You are not allowed to perform this action
+20220531	22:11:39	Error: You are not allowed to perform this action
+20220531	22:16:41	Error: You are not logged in
+20220531	22:16:48	Error: You are not logged in
+20220601	00:11:59	Error: You are not logged in
+20220601	00:12:54	Error: You are not allowed to perform this action
+20220601	00:47:15	Error: You are not logged in
+20220601	05:37:03	Error: You are not allowed to perform this action
+20220601	05:37:09	Error: You are not allowed to perform this action
+20220601	05:38:38	Error: You are not allowed to perform this action
+20220601	05:44:44	Error: Invalid username or password
+20220601	05:46:08	Error: Invalid username or password
+20220601	08:15:47	ValidationError: Product validation failed: sellerId: Cast to string failed for value "{
+  _id: new ObjectId("6295c5a0b3fc0e0df271497b"),
+  username: 'Maryam',
+  role: 'seller',
+  deposit: 510.15,
+  createdAt: 2022-05-31T07:37:04.765Z,
+  updatedAt: 2022-05-31T19:17:52.377Z,
+  __v: 0
+}" (type Object) at path "sellerId"
+20220601	08:17:05	ValidationError: Product validation failed: sellerId: Cast to string failed for value "{
+  _id: new ObjectId("6295c5a0b3fc0e0df271497b"),
+  username: 'Maryam',
+  role: 'seller',
+  deposit: 510.15,
+  createdAt: 2022-05-31T07:37:04.765Z,
+  updatedAt: 2022-05-31T19:17:52.377Z,
+  __v: 0
+}" (type Object) at path "sellerId"
+20220601	08:38:04	Error: You are not logged in
+20220601	08:38:43	Error: You are not allowed to perform this action
+20220601	09:56:10	Error: You are not allowed to perform this action
+20220601	11:28:59	Error: You are not allowed to perform this action
+20220601	11:29:00	Error: You are not allowed to perform this action
+20220601	11:41:39	Error: You are not logged in
+20220601	11:48:04	Error: Quantity requested is more than available product 

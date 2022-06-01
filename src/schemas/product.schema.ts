@@ -13,7 +13,7 @@ export const createProductSchema = object({
     productName: string({ required_error: 'Product Name is required' }).min(6, 'Name must be more than 6 characters'),
     amountAvailable: number({ required_error: 'Product Name is required' }).positive(),
     cost: number({ required_error: 'Cost of product is required' }).positive(),
-    sellerId: string({ required_error: 'Product Name is required' }).min(6, 'Name must be more than 6 characters'),
+    sellerId: string(),
   })
 })
 
@@ -33,7 +33,7 @@ export const getProductSchema = object({
 export const buyProductSchema = object({
   ...params,
   body: object({
-    quantity: number().positive(),
+    quantity: string({ required_error: 'Quatity of product is required' })
   })
 });
 
