@@ -74,7 +74,7 @@ export const getAllProductHandler = async (
 
         res.status(200).json({
             status: 'success',
-            result: products.length,
+            count: products.length,
             data: {
                 products,
             },
@@ -227,13 +227,16 @@ export const deleteProductHandler = async (
     res: Response,
     next: NextFunction
 ) => {
-    logging.info(`Delete ptoduct route called`)
+    logging.info(`Delete product route called`)
     try {
         const product = await deleteProduct({ _id: req.params.productId });
-
+   
+        
         if (!product) {
             return next(new AppError('No document with that ID exist', 404));
         }
+          
+        
         const apiFeatures = new APIFeatures(productModel.find(), req.query)
             .filter()
             .sort()
@@ -241,10 +244,12 @@ export const deleteProductHandler = async (
 
         const products = await apiFeatures.query;
 
-        res.status(204).json({
+        return res.status(200).json({
             status: 'success',
+            count: products.length,
             data: products,
         });
+
     } catch (err: any) {
         next(err);
     }

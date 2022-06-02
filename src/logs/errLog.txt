@@ -158,3 +158,19 @@
 20220601	20:03:44	Error: You are not allowed to perform this action
 20220601	20:03:45	Error: You are not allowed to perform this action
 20220601	20:03:45	Error: You are not allowed to perform this action
+20220601	23:32:34	Error: You are not allowed to perform this action
+20220601	23:33:27	Error: Please supply the corrct currency
+20220601	23:33:35	Error: Please supply the corrct currency
+20220601	23:33:56	Error: Please supply the corrct currency
+20220601	23:51:45	Error: Invalid token, user doesn't exist or token expired
+20220601	23:52:16	Error: Invalid token, user doesn't exist or token expired
+20220601	23:52:54	Error: You are not allowed to perform this action
+20220601	23:56:18	Error: You are not allowed to perform this action
+20220601	23:57:00	Error: Insufficient funds!
+20220601	23:57:41	Error: Please supply the corrct currency in [5, 10, 20, 50, 100]
+20220602	06:26:13	Error: You are not allowed to perform this action
+20220602	06:43:16	Error: Cannot set headers after they are sent to the client
+20220602	06:52:27	Error: Cannot set headers after they are sent to the client
+20220602	06:55:26	Error: Invalid token, user doesn't exist or token expired
+20220602	06:57:50	Error: No document with that ID exist
+20220602	06:59:59	Error: Invalid token, user doesn't exist or token expired

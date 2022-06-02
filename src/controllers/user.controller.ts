@@ -81,7 +81,7 @@ export const modifyUserDeposit = async (
     let checkAmountToDepositEnabled = await checkArray(req.body.deposit)
     if (!req.body.deposit || !checkAmountToDepositEnabled) {
       return next(
-        new AppError('Please supply the corrct currency', 204)
+        new AppError('Please supply the corrct currency in [5, 10, 20, 50, 100]', 204)
       )
     }
 
