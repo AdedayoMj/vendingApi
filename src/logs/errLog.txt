@@ -174,3 +174,75 @@
 20220602	06:55:26	Error: Invalid token, user doesn't exist or token expired
 20220602	06:57:50	Error: No document with that ID exist
 20220602	06:59:59	Error: Invalid token, user doesn't exist or token expired
+20220602	11:07:46	Error: Not allowed by CORS
+20220602	11:07:46	Error: Not allowed by CORS
+20220602	11:07:46	Error: Not allowed by CORS
+20220602	11:07:52	Error: Not allowed by CORS
+20220602	11:07:52	Error: Not allowed by CORS
+20220602	11:07:52	Error: Not allowed by CORS
+20220602	11:09:14	Error: Invalid username or password
+20220602	11:09:40	Error: Insufficient funds!
+20220602	11:10:20	Error: You are not allowed to perform this action
+20220602	11:12:25	Error: You are not allowed to perform this action
+20220602	11:12:27	Error: You are not allowed to perform this action
+20220602	11:12:33	Error: You are not allowed to perform this action
+20220602	11:24:06	Error: You are not allowed to perform this action
+20220602	11:25:45	Error: You are not allowed to perform this action
+20220602	13:20:44	Error: You are not logged in
+20220602	13:20:44	Error: You are not logged in
+20220602	13:20:53	Error: You are not logged in
+20220602	13:23:40	Error: You are not logged in
+20220602	13:23:40	Error: You are not logged in
+20220602	13:23:43	Error: You are not logged in
+20220602	13:23:43	Error: You are not logged in
+20220602	14:01:37	Error: You are not logged in
+20220602	14:01:37	Error: You are not logged in
+20220602	21:34:32	RangeError: Maximum call stack size exceeded
+20220602	22:13:59	Error: Invalid token, user doesn't exist or token expired
+20220602	22:15:38	CastError: Cast to Number failed for value "[ 10 ]" (type Array) at path "deposit"
+20220602	22:18:10	CastError: Cast to Number failed for value "[ 10 ]" (type Array) at path "deposit"
+20220602	22:23:31	CastError: Cast to Number failed for value "[ 10 ]" (type Array) at path "deposit"
+20220602	22:27:49	SyntaxError: Unexpected token } in JSON at position 18
+20220602	22:27:56	CastError: Cast to Number failed for value "[ 10 ]" (type Array) at path "deposit"
+20220602	22:28:57	Error: Quantity requested is more than available product 
+20220602	22:29:05	CastError: Cast to Number failed for value "[]" (type Array) at path "deposit"
+20220602	23:07:41	Error: You are not logged in
+20220602	23:07:41	Error: You are not logged in
+20220602	23:41:40	Error: You are not logged in
+20220602	23:41:40	Error: You are not logged in
+20220602	23:43:14	Error: You are not logged in
+20220602	23:43:14	Error: You are not logged in
+20220603	00:13:37	Error: You are not allowed to perform this action
+20220603	00:58:34	Error: You are not logged in
+20220603	00:58:34	Error: You are not logged in
+20220603	01:03:48	Error: You are not logged in
+20220603	01:03:48	Error: You are not logged in
+20220603	01:05:36	Error: You are not logged in
+20220603	01:05:36	Error: You are not logged in
+20220603	01:06:16	Error: You are not logged in
+20220603	01:06:16	Error: You are not logged in
+20220603	08:25:54	Error: You are not logged in
+20220603	08:25:54	Error: You are not logged in
+20220603	09:46:53	Error: You are not logged in
+20220603	09:55:32	Error: You are not logged in
+20220603	10:01:27	Error: You are not logged in
+20220603	10:11:19	Error: You are not logged in
+20220603	10:11:41	Error: You are not logged in
+20220603	10:11:50	Error: You are not logged in
+20220603	10:11:54	Error: You are not logged in
+20220603	10:11:54	Error: You are not logged in
+20220603	10:13:08	Error: You are not logged in
+20220603	10:18:09	Error: You are not logged in
+20220603	10:18:09	Error: You are not logged in
+20220603	10:24:12	Error: Insufficient funds!
+20220603	10:49:57	Error: You are not logged in
+20220603	10:49:57	Error: You are not logged in
+20220603	10:49:57	Error: You are not logged in
+20220603	10:49:57	Error: You are not logged in
+20220603	11:18:59	Error: You are not allowed to perform this action
+20220603	11:19:04	Error: You are not allowed to perform this action
+20220603	11:22:31	Error: You are not logged in
+20220603	11:22:31	Error: You are not logged in
+20220603	11:22:31	Error: You are not logged in
+20220603	11:22:31	Error: You are not logged in
+20220603	11:50:43	Error: Invalid username or password

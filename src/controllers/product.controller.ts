@@ -20,19 +20,27 @@ import AppError from '../utils/appError';
 import APIFeatures from '../utils/apiFeatures';
 import logging from '../utils/logging';
 import { findAndUpdateUser } from '../services/user.service';
+import { getChange } from '../middleware/getChange';
 
 
 
 export const createProductHandler = async (
-    req: Request<{}, {}, CreateProductInput>,
+    req: Request<{}, {}, Partial<CreateProductInput>>,
     res: Response,
     next: NextFunction
 ) => {
     logging.info(`Attempting  to create product `);
 
     try {
+        const { productName, amountAvailable, cost } = req.body
+        const data = {
+            sellerId: res.locals.user._id,
+            productName,
+            cost,
+            amountAvailable
+        }
 
-        await createProduct(req.body);
+        await createProduct(data);
 
         const apiFeatures = new APIFeatures(productModel.find(), req.query)
             .filter()
@@ -148,24 +156,26 @@ export const buyProductHandler = async (
 
         const product = await getProduct({ _id: req.params.productId });
         const { quantity } = req.body
-        let convertQuatity = Number(quantity)
+        // let quantity = Number(quantity)
 
         if (!product) {
             return next(new AppError('No product with that ID exist', 404));
         }
-        if (product.amountAvailable < convertQuatity) {
+        if (product.amountAvailable < quantity) {
             return next(new AppError('Quantity requested is more than available product ', 404));
         }
-        const productTotalPrice = product.cost * convertQuatity
+        const productTotalPrice = product.cost * quantity
+
 
         if (deposit < productTotalPrice) return next(new AppError('Insufficient funds!', 51));
-        const calculateChange = deposit - productTotalPrice
+        const availabeBalance = deposit - productTotalPrice
+        const calculateChange = await getChange(availabeBalance)
 
         let newProduct = {
-            amountAvailable: (product.amountAvailable - convertQuatity)
+            amountAvailable: (product.amountAvailable - quantity)
         }
         let newdDeposit = {
-            deposit: calculateChange
+            deposit: availabeBalance
         }
         await Promise.all([
             updateProduct({ _id: req.params.productId }, newProduct, {
@@ -183,10 +193,12 @@ export const buyProductHandler = async (
             availableChange: calculateChange,
             productName: product.productName
         }
+
+
         res.status(200).json({
             status: 'success',
             data: {
-                products,
+                products
             },
         });
 
@@ -230,13 +242,13 @@ export const deleteProductHandler = async (
     logging.info(`Delete product route called`)
     try {
         const product = await deleteProduct({ _id: req.params.productId });
-   
-        
+
+
         if (!product) {
             return next(new AppError('No document with that ID exist', 404));
         }
-          
-        
+
+
         const apiFeatures = new APIFeatures(productModel.find(), req.query)
             .filter()
             .sort()

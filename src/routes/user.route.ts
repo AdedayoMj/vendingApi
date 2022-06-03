@@ -6,7 +6,8 @@ import {
   modifyUserDeposit,
   resetDeposit,
   deleteMeHandler,
-  updateMeHandler
+  updateMeHandler,
+  getAvailableChangeMeHandler
 } from '../controllers/user.controller';
 import { deserializeUser } from '../middleware/deserializeUser';
 import { requireUser } from '../middleware/requireUser';
@@ -33,6 +34,7 @@ router.patch('/updateUser', validate(updateMeSchema), updateMeHandler);
 
 // Get my info route
 router.get('/getUser', getMeHandler);
+router.get('/getChange', getAvailableChangeMeHandler);
 
 // delete Users route
 router.delete('/deleteUser', deleteMeHandler);

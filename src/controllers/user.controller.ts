@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { omit } from 'lodash';
 import { checkArray } from '../middleware/checkArray';
+import { getChange } from '../middleware/getChange';
 import { User } from '../models/user.model';
 import { UpdateMeInput } from '../schemas/user.schema';
 import { findAllUsers, findAndUpdateUser, findUserById } from '../services/user.service';
@@ -184,6 +185,27 @@ export const updateMeHandler = async (
       data: {
         user: newUser,
       },
+    });
+  } catch (err: any) {
+    next(err);
+  }
+};
+
+export const getAvailableChangeMeHandler = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  logging.info(`Change route called`)
+  try {
+    const user = res.locals.user;
+    const calculateCoinChange = await getChange(user.deposit)
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        coinChanges:calculateCoinChange,
+      }
     });
   } catch (err: any) {
     next(err);

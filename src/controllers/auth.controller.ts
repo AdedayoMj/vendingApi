@@ -33,8 +33,6 @@ export const registerHandler = async (
       username: req.body.username,
       password: req.body.password,
     });
-
-    console.log(user);
     
 
     res.status(201).json({
@@ -116,7 +114,6 @@ export const logoutHandler = async (
     
     res.status(200).json({ status: 'success' });
   } catch (err: any) {
-    console.log(err)
     next(err);
   }
 };
