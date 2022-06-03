@@ -44,7 +44,8 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   });
 });
 
-const port = config.get<number>('port');
+
+const port = process.env.PORT||config.get<number>('port');
 /** Listen */
 httpServer.listen(variableData.server.port, () => {
   logging.info(`Server is running ${process.env.NODE_ENV}:${port}`),

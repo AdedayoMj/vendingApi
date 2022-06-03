@@ -246,3 +246,14 @@
 20220603	11:22:31	Error: You are not logged in
 20220603	11:22:31	Error: You are not logged in
 20220603	11:50:43	Error: Invalid username or password
+20220603	13:19:42	Error: You are not logged in
+20220603	13:19:42	Error: You are not logged in
+20220603	13:19:42	Error: You are not logged in
+20220603	13:19:42	Error: You are not logged in
+20220603	17:10:32	Error: You are not allowed to perform this action
+20220603	19:35:46	Error: Invalid username or password
+20220603	19:46:24	Error: You are not allowed to perform this action
+20220603	19:56:22	Error: You are not allowed to perform this action
+20220603	20:09:26	Error: Insufficient funds!
+20220603	20:10:58	Error: You are not allowed to perform this action
+20220603	20:26:48	Error: You are not allowed to perform this action
