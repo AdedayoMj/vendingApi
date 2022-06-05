@@ -131,11 +131,16 @@ export const updateProductHandler = async (
         if (!product) {
             return next(new AppError('No Product with that ID exist', 404));
         }
+        const apiFeatures = new APIFeatures(productModel.find(), req.query)
+            .filter()
+            .sort()
+            .limitField()
 
+        const products = await apiFeatures.query;
         res.status(200).json({
             status: 'success',
             data: {
-                product,
+                products,
             },
         });
     } catch (err: any) {
@@ -208,31 +213,6 @@ export const buyProductHandler = async (
     ;
 
 }
-
-export const resetProductHandler = async (
-    req: Request<DeleteProductInput>,
-    res: Response,
-    next: NextFunction
-) => {
-    logging.info(`Reset deposit route called`)
-    try {
-        let newdDeposit = {
-            deposit: 0
-        }
-
-        const user = await findAndUpdateUser({ _id: res.locals.user._id }, newdDeposit, {
-            new: false,
-            runValidators: true
-        })
-
-        res.status(204).json({
-            status: 'success',
-            data: user,
-        });
-    } catch (err: any) {
-        next(err);
-    }
-};
 
 export const deleteProductHandler = async (
     req: Request<DeleteProductInput>,
