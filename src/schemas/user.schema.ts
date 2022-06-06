@@ -3,6 +3,7 @@ import { object, string, number, TypeOf } from 'zod';
 export const createUserSchema = object({
   body: object({
     username: string({ required_error: 'Username is required' }).min(6, 'Username must be more than 6 characters'),
+    role: string({ required_error: 'Role is required' }),
     password: string({ required_error: 'Password is required' })
       .min(8, 'Password must be more than 8 characters')
       .max(32, 'Password must be less than 32 characters'),

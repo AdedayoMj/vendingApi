@@ -31,7 +31,7 @@ import {
     @prop({ required: true, minlength: 8, maxLength: 32, select: false })
     password: string;
   
-    @prop({lowercase: true , default: 'buyer' })
+    @prop({lowercase: true , required:true })
     role: string;
 
     @prop({ default: 0 })

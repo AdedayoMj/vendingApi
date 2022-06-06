@@ -32,6 +32,7 @@ export const registerHandler = async (
     const user = await createUser({
       username: req.body.username,
       password: req.body.password,
+      role:req.body.role
     });
     
 

@@ -1,7 +1,7 @@
 
 
 export const getChange = (remain: number) => {
-    let changes = [100, 50, 25, 10, 5]
+    let changes = [100, 50, 20, 10, 5]
     let all_changes: number[] = []
     for (let index in changes) {
 

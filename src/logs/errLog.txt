@@ -259,3 +259,7 @@
 20220603	20:26:48	Error: You are not allowed to perform this action
 20220605	07:34:47	Error: Invalid username or password
 20220605	10:08:40	Error: You are not allowed to perform this action
+20220606	11:52:40	Error: You are not allowed to perform this action
+20220606	11:52:48	Error: You are not allowed to perform this action
+20220606	12:34:25	Error: You are not allowed to perform this action
+20220606	12:36:58	Error: Invalid username or password
